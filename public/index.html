@@ -425,18 +425,14 @@
         }
         .trust-badge-inner {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 8rem;
             height: 8rem;
             border-radius: 50%;
-            border: 4px dashed var(--pink-main);
             padding: 0.5rem;
         }
-        .trust-badge-inner span:first-child { font-weight: 900; font-size: 0.75rem; line-height: 1.2; text-align: center; }
-        .trust-badge-inner i { font-size: 1.875rem; color: var(--amber-main); margin: 0.25rem 0; }
-        .trust-badge-inner span:last-child { font-weight: 900; font-size: 0.625rem; color: var(--pink-main); line-height: 1.2; text-align: center; }
+        .trust-badge-inner img { width: 7rem; height: 7rem; object-fit: contain; border-radius: 50%; }
 
         /* Sibling Box Section */
         #sibling-box {
@@ -1006,10 +1002,7 @@
 
             <div class="trust-badge-container floating shadow-pop border-black" style="animation-delay: 1s;" data-aos="fade-in" data-aos-delay="600">
                 <div class="trust-badge-inner">
-                    <span class="uppercase">Bake Me A Wish</span>
-                    <img src="logo.webp" alt="Logo" style="width:40px; height:40px; margin: 4px 0; border-radius:50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <i class="fa-solid fa-cake-candles" style="display:none;"></i>
-                    <span class="uppercase">Handmade<br>With Love</span>
+                    <img src="logo.webp" alt="Bake Me A Wish logo" class="trust-badge-logo">
                 </div>
             </div>
 
