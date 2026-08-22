@@ -1092,6 +1092,7 @@
             <div class="cart-footer">
                 <form id="checkout-details" class="checkout-details">
                     <h4 class="uppercase">Your checkout details</h4>
+                    <p style="font-size:0.75rem; color:var(--gray-light);">Pickup is available only at <strong>3/131 Gomti Nagar, Lucknow</strong>. For delivery, use WhatsApp to check eligibility before ordering.</p>
                     <label for="customer-name">Name</label>
                     <input id="customer-name" name="name" required autocomplete="name">
                     <label for="customer-email">Email</label>
@@ -1099,15 +1100,15 @@
                     <label for="customer-phone">Phone number</label>
                     <input id="customer-phone" name="phone" type="tel" required autocomplete="tel">
                     <div class="field-row">
-                        <div><label for="delivery-date">Date of delivery</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
+                        <div><label for="delivery-date">Date of pickup</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
                         <div><label for="pickup-time">Time of pickup</label><input id="pickup-time" name="pickupTime" type="time" required></div>
                     </div>
                     <label for="fulfillment">Delivery or pickup</label>
                     <select id="fulfillment" name="fulfillment" required>
-                        <option value="">Select one</option><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option>
+                        <option value="Pickup">Pickup only</option>
                     </select>
                     <label for="customer-address">Address</label>
-                    <textarea id="customer-address" name="address" required autocomplete="street-address"></textarea>
+                    <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
                 </form>
                 <div class="cart-total-row border-black-thin">
                     <span class="cart-total-label uppercase font-black">Total</span>
@@ -1424,7 +1425,7 @@
             const form = document.getElementById('checkout-details');
             if (!form.reportValidity()) return null;
             const details = Object.fromEntries(new FormData(form).entries());
-            const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}`);
+            const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}:00+05:30`);
             if (requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
                 showToast('Choose a date and time at least 24 hours from now.');
                 return null;
@@ -1450,7 +1451,7 @@
             }
             const details = getCheckoutDetails();
             if (!details) return;
-            window.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(getOrderMessage(details))}`;
+            window.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(getOrderMessage(details) + '\n\nFor delivery, please check my eligibility for my address.')}`;
         }
 
         // Razorpay Backend Integration
@@ -1517,13 +1518,13 @@
 
                             const verifyResult = await verifyRes.json();
                             if (verifyRes.ok && verifyResult.success) {
-                                showToast("Payment Successful & Verified!");
                                 const paymentDateTime = new Date().toISOString();
                                 const notifyRes = await fetch('/api/notify-order', {
                                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ details, items: cart, totalAmount: totalPrice, paymentId: response.razorpay_payment_id, orderId: response.razorpay_order_id, paymentDateTime })
                                 });
-                                if (!notifyRes.ok) throw new Error('Order email could not be sent.');
+                                const notificationWarning = notifyRes.ok ? '' : ' Email notification needs manual follow-up.';
+                                showToast(`Payment successful and verified.${notificationWarning}`);
                                 const message = getOrderMessage(details, { paymentId: response.razorpay_payment_id, paymentDateTime });
                                 
                                 cart = [];
@@ -1536,7 +1537,8 @@
                             }
                         } catch (err) {
                             console.error("Verification Error:", err);
-                            alert("Payment Verification Failed. Please contact support.");
+                            if (whatsappWindow) whatsappWindow.close();
+                            alert("Payment verification failed. Please contact support before trying again.");
                         }
                     },
                     "prefill": { "name": details.name, "email": details.email, "contact": details.phone },
@@ -1544,11 +1546,15 @@
                 };
                 
                 const rzp1 = new Razorpay(options);
-                rzp1.on('payment.failed', function (response){ alert("Payment Failed: " + response.error.description); });
+                rzp1.on('payment.failed', function (response){
+                    if (whatsappWindow) whatsappWindow.close();
+                    alert("Payment Failed: " + response.error.description);
+                });
                 rzp1.open();
 
             } catch (error) {
                 console.error("Checkout Error:", error);
+                if (whatsappWindow) whatsappWindow.close();
                 alert("Error initiating checkout. Ensure the Node server (server.js) is running.");
             } finally {
                 // Restore Button State

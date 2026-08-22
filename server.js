@@ -126,6 +126,9 @@ app.post('/api/notify-order', async (req, res) => {
     if (validationError || !Array.isArray(items) || !items.length || !totalAmount || !paymentId) {
       return res.status(400).json({ error: validationError || 'Missing order information.' });
     }
+    if (details.fulfillment !== 'Pickup') {
+      return res.status(400).json({ error: 'Online checkout is available for pickup only. Contact us on WhatsApp to check delivery eligibility.' });
+    }
     if (!mailer) return res.status(503).json({ error: 'Email service is not configured on the server.' });
 
     const itemLines = items.map(item => `${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}`).join('\n');
