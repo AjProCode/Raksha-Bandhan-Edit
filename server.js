@@ -34,6 +34,7 @@ const mailer = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMT
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     })
   : null;
+const testCouponCode = 'BMATEST1';
 
 function validateOrderDetails(details) {
   const requiredFields = ['name', 'email', 'phone', 'deliveryDate', 'fulfillment', 'address', 'pickupTime'];
@@ -57,18 +58,25 @@ app.get('/api/config', (req, res) => {
     res.json({ keyId: process.env.RAZORPAY_KEY_ID });
 });
 
+app.post('/api/validate-coupon', (req, res) => {
+  const code = typeof req.body.code === 'string' ? req.body.code.trim().toUpperCase() : '';
+  res.json({ valid: code === testCouponCode, discountType: 'fixed', discountAmount: 0 });
+});
+
 // 1. Create Order Endpoint
 app.post('/api/create-order', async (req, res) => {
   try {
-    const { amount, receipt } = req.body;
+    const { amount, receipt, couponCode } = req.body;
+    const couponApplied = typeof couponCode === 'string' && couponCode.trim().toUpperCase() === testCouponCode;
+    const payableAmount = couponApplied ? 100 : amount;
 
     // Validate amount (must be at least 100 paise = 1 INR)
-    if (!amount || amount < 100) {
+    if (!payableAmount || payableAmount < 100) {
         return res.status(400).json({ error: 'Invalid amount. Minimum amount is 100 paise.' });
     }
 
     const options = {
-      amount: amount, // amount in the smallest currency unit (paise)
+      amount: payableAmount, // amount in the smallest currency unit (paise)
       currency: 'INR',
       receipt: receipt || `receipt_${Date.now()}`,
     };
@@ -121,7 +129,7 @@ app.post('/api/verify-payment', (req, res) => {
 // 3. Email the customer and store after a verified payment
 app.post('/api/notify-order', async (req, res) => {
   try {
-    const { details, items, totalAmount, paymentId, orderId, paymentDateTime } = req.body;
+    const { details, items, totalAmount, subtotal, couponCode, paymentId, orderId, paymentDateTime } = req.body;
     const validationError = validateOrderDetails(details);
     if (validationError || !Array.isArray(items) || !items.length || !totalAmount || !paymentId) {
       return res.status(400).json({ error: validationError || 'Missing order information.' });
@@ -146,6 +154,8 @@ app.post('/api/notify-order', async (req, res) => {
       'Items:',
       itemLines,
       '',
+      `Subtotal: INR ${subtotal || totalAmount}`,
+      couponCode ? `Coupon applied: ${couponCode}` : 'Coupon applied: None',
       `Total amount paid: INR ${totalAmount}`,
       `Payment date and time: ${paymentDateTime || new Date().toISOString()}`,
       `Payment ID: ${paymentId}`,

@@ -733,7 +733,9 @@
             background-color: rgba(0,0,0,0.8);
             backdrop-filter: blur(4px);
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
@@ -742,16 +744,18 @@
 
         .cart-drawer {
             width: 100%;
-            max-width: 28rem;
+            max-width: 56rem;
+            min-height: min(95vh, 54rem);
+            max-height: 95vh;
             background-color: #3b0764;
             height: 100%;
-            border-left: 4px solid var(--text-dark);
+            border: 4px solid var(--text-dark);
             display: flex;
             flex-direction: column;
-            transform: translateX(100%);
+            transform: translateY(2rem) scale(0.98);
             transition: transform 0.3s ease-out;
         }
-        #cart-modal.open .cart-drawer { transform: translateX(0); }
+        #cart-modal.open .cart-drawer { transform: translateY(0) scale(1); }
 
         .cart-header {
             padding: 1.25rem;
@@ -845,6 +849,12 @@
         
         .cart-footer-note { font-size: 0.625rem; text-align: center; color: #f472b6; }
 
+        .coupon-row { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .coupon-row input { flex: 1; min-width: 0; padding: 0.7rem; border: 2px solid var(--text-dark); border-radius: 0.4rem; font: inherit; }
+        .coupon-row button { padding: 0.7rem 1rem; border-radius: 0.4rem; }
+        .coupon-status { min-height: 1rem; margin-bottom: 0.5rem; font-size: 0.7rem; font-weight: 800; color: var(--emerald-light); }
+        .discount-row { display: flex; justify-content: space-between; margin: -0.5rem 0 0.75rem; color: var(--emerald-light); font-size: 0.8rem; font-weight: 800; }
+
         .checkout-details {
             display: grid;
             gap: 0.65rem;
@@ -895,6 +905,13 @@
             display: none;
         }
         @keyframes loaderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) {
+            #cart-modal { padding: 0; }
+            .cart-drawer { max-height: 100vh; min-height: 100vh; border-left: 0; border-right: 0; border-top: 0; border-bottom: 0; }
+            .cart-footer { padding: 1rem; }
+            .checkout-details .field-row { grid-template-columns: 1fr; }
+        }
         
     </style>
 </head>
@@ -1110,8 +1127,16 @@
                     <label for="customer-address">Address</label>
                     <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
                 </form>
+                <div class="coupon-row">
+                    <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off" aria-label="Coupon code">
+                    <button type="button" onclick="applyCoupon()" class="btn-amber pop-button border-black-thin">Apply</button>
+                </div>
+                <div id="coupon-status" class="coupon-status" role="status"></div>
+                <div id="discount-row" class="discount-row hidden">
+                    <span>Coupon discount</span><span class="discount-value">-₹0</span>
+                </div>
                 <div class="cart-total-row border-black-thin">
-                    <span class="cart-total-label uppercase font-black">Total</span>
+                    <span class="cart-total-label uppercase font-black">Payable total</span>
                     <span id="cart-total" class="cart-total-val comic-font">₹0</span>
                 </div>
                 
@@ -1187,6 +1212,7 @@
         ];
 
         let cart = [];
+        let appliedCouponCode = '';
 
         document.addEventListener('DOMContentLoaded', () => {
             renderCatalogue();
@@ -1363,13 +1389,51 @@
             updateCartUI();
         }
 
+        function getCartSubtotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        function getPayableTotal() {
+            return appliedCouponCode ? 1 : getCartSubtotal();
+        }
+
+        async function applyCoupon() {
+            const input = document.getElementById('coupon-code');
+            const status = document.getElementById('coupon-status');
+            const code = input.value.trim();
+            if (!code) {
+                status.innerText = 'Enter a coupon code.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/validate-coupon', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const result = await response.json();
+                if (!result.valid) throw new Error('Invalid coupon');
+                appliedCouponCode = code.toUpperCase();
+                status.innerText = 'Coupon applied. Payable total is ₹1.';
+                updateCartUI();
+            } catch (error) {
+                appliedCouponCode = '';
+                status.innerText = 'Coupon is not valid.';
+                updateCartUI();
+            }
+        }
+
         function updateCartUI() {
             const badge = document.getElementById('cart-badge');
             const itemsContainer = document.getElementById('cart-items');
             const totalContainer = document.getElementById('cart-total');
 
+            if (cart.length === 0) appliedCouponCode = '';
+
             const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const subtotal = getCartSubtotal();
+            const totalPrice = getPayableTotal();
 
             if (totalItems > 0) {
                 badge.innerText = totalItems > 99 ? '99+' : totalItems;
@@ -1379,6 +1443,11 @@
             }
 
             totalContainer.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+            const discountRow = document.getElementById('discount-row');
+            if (discountRow) {
+                discountRow.classList.toggle('hidden', !appliedCouponCode);
+                discountRow.querySelector('.discount-value').innerText = `-₹${(subtotal - totalPrice).toLocaleString('en-IN')}`;
+            }
 
             if (cart.length === 0) {
                 itemsContainer.innerHTML = `
@@ -1434,12 +1503,13 @@
         }
 
         function getOrderMessage(details, paymentInfo = {}) {
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const totalPrice = getPayableTotal();
             let message = `Hi Bake Me A Wish! I want to place an order from the Raksha Bandhan Catalogue:\n\n`;
             message += `Name: ${details.name}\nEmail: ${details.email}\nPhone: ${details.phone}\n`;
             message += `${details.fulfillment}: ${details.deliveryDate} at ${details.pickupTime}\nAddress: ${details.address}\n\nItems:\n`;
             cart.forEach((item, index) => { message += `${index + 1}. ${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}\n`; });
             message += `\nTotal amount: INR ${totalPrice}`;
+            if (appliedCouponCode) message += `\nCoupon applied: ${appliedCouponCode}`;
             if (paymentInfo.paymentId) message += `\nPayment date and time: ${paymentInfo.paymentDateTime}\nPayment ID: ${paymentInfo.paymentId}`;
             return message;
         }
@@ -1456,7 +1526,7 @@
 
         // Razorpay Backend Integration
         async function startRazorpayCheckout() {
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const totalPrice = getPayableTotal();
             if (totalPrice === 0) {
                 showToast("Your cart is empty! Add items first.");
                 return;
@@ -1488,7 +1558,7 @@
                 const orderRes = await fetch('/api/create-order', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount: amountInPaise, receipt: `rcpt_cart_${Date.now()}` })
+                    body: JSON.stringify({ amount: amountInPaise, couponCode: appliedCouponCode, receipt: `rcpt_cart_${Date.now()}` })
                 });
 
                 if (!orderRes.ok) throw new Error("Failed to create order on server.");
@@ -1521,7 +1591,7 @@
                                 const paymentDateTime = new Date().toISOString();
                                 const notifyRes = await fetch('/api/notify-order', {
                                     method: 'POST', headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ details, items: cart, totalAmount: totalPrice, paymentId: response.razorpay_payment_id, orderId: response.razorpay_order_id, paymentDateTime })
+                                    body: JSON.stringify({ details, items: cart, subtotal: getCartSubtotal(), couponCode: appliedCouponCode, totalAmount: totalPrice, paymentId: response.razorpay_payment_id, orderId: response.razorpay_order_id, paymentDateTime })
                                 });
                                 const notificationWarning = notifyRes.ok ? '' : ' Email notification needs manual follow-up.';
                                 showToast(`Payment successful and verified.${notificationWarning}`);
