@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -24,6 +25,32 @@ const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
+
+const mailer = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
+  ? nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true',
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    })
+  : null;
+
+function validateOrderDetails(details) {
+  const requiredFields = ['name', 'email', 'phone', 'deliveryDate', 'fulfillment', 'address', 'pickupTime'];
+  if (!details || requiredFields.some(field => typeof details[field] !== 'string' || !details[field].trim())) {
+    return 'All customer and delivery details are required.';
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(details.email.trim())) return 'Enter a valid email address.';
+  if (!/^[+\d][\d\s()-]{7,}$/.test(details.phone.trim())) return 'Enter a valid phone number.';
+
+  const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}:00+05:30`);
+  if (Number.isNaN(requestedTime.getTime()) || requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
+    return 'Delivery or pickup must be scheduled at least 24 hours from now.';
+  }
+
+  return null;
+}
 
 // Endpoint to fetch the Razorpay Key ID for the frontend safely
 app.get('/api/config', (req, res) => {
@@ -88,6 +115,51 @@ app.post('/api/verify-payment', (req, res) => {
   } catch (error) {
     console.error('Error verifying payment:', error);
     res.status(500).json({ error: 'Internal Server Error during verification' });
+  }
+});
+
+// 3. Email the customer and store after a verified payment
+app.post('/api/notify-order', async (req, res) => {
+  try {
+    const { details, items, totalAmount, paymentId, orderId, paymentDateTime } = req.body;
+    const validationError = validateOrderDetails(details);
+    if (validationError || !Array.isArray(items) || !items.length || !totalAmount || !paymentId) {
+      return res.status(400).json({ error: validationError || 'Missing order information.' });
+    }
+    if (!mailer) return res.status(503).json({ error: 'Email service is not configured on the server.' });
+
+    const itemLines = items.map(item => `${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}`).join('\n');
+    const text = [
+      'Bake Me A Wish order confirmation',
+      '',
+      `Customer: ${details.name}`,
+      `Email: ${details.email}`,
+      `Phone: ${details.phone}`,
+      `Fulfillment: ${details.fulfillment}`,
+      `Delivery date: ${details.deliveryDate}`,
+      `Pickup/delivery time: ${details.pickupTime}`,
+      `Address: ${details.address}`,
+      '',
+      'Items:',
+      itemLines,
+      '',
+      `Total amount paid: INR ${totalAmount}`,
+      `Payment date and time: ${paymentDateTime || new Date().toISOString()}`,
+      `Payment ID: ${paymentId}`,
+      `Razorpay order ID: ${orderId || 'N/A'}`,
+    ].join('\n');
+
+    await mailer.sendMail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: [details.email, 'agarwal.reshu@gmail.com'],
+      subject: `Order confirmation - ${details.name}`,
+      text,
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error sending order notification:', error);
+    res.status(500).json({ error: 'Payment succeeded, but order email could not be sent.' });
   }
 });
 

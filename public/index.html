@@ -845,6 +845,20 @@
         
         .cart-footer-note { font-size: 0.625rem; text-align: center; color: #f472b6; }
 
+        .checkout-details {
+            display: grid;
+            gap: 0.65rem;
+            margin-bottom: 1rem;
+        }
+        .checkout-details h4 { color: var(--amber-main); font-size: 1rem; }
+        .checkout-details label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--gray-light); }
+        .checkout-details input, .checkout-details select, .checkout-details textarea {
+            width: 100%; padding: 0.65rem; border: 2px solid var(--text-dark); border-radius: 0.4rem;
+            font: inherit; font-size: 0.8rem; color: var(--text-dark); background: var(--text-light);
+        }
+        .checkout-details textarea { min-height: 4rem; resize: vertical; }
+        .checkout-details .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+
         /* Toast */
         #toast {
             position: fixed;
@@ -1076,6 +1090,25 @@
             </div>
 
             <div class="cart-footer">
+                <form id="checkout-details" class="checkout-details">
+                    <h4 class="uppercase">Your checkout details</h4>
+                    <label for="customer-name">Name</label>
+                    <input id="customer-name" name="name" required autocomplete="name">
+                    <label for="customer-email">Email</label>
+                    <input id="customer-email" name="email" type="email" required autocomplete="email">
+                    <label for="customer-phone">Phone number</label>
+                    <input id="customer-phone" name="phone" type="tel" required autocomplete="tel">
+                    <div class="field-row">
+                        <div><label for="delivery-date">Date of delivery</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
+                        <div><label for="pickup-time">Time of pickup</label><input id="pickup-time" name="pickupTime" type="time" required></div>
+                    </div>
+                    <label for="fulfillment">Delivery or pickup</label>
+                    <select id="fulfillment" name="fulfillment" required>
+                        <option value="">Select one</option><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option>
+                    </select>
+                    <label for="customer-address">Address</label>
+                    <textarea id="customer-address" name="address" required autocomplete="street-address"></textarea>
+                </form>
                 <div class="cart-total-row border-black-thin">
                     <span class="cart-total-label uppercase font-black">Total</span>
                     <span id="cart-total" class="cart-total-val comic-font">₹0</span>
@@ -1157,6 +1190,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderCatalogue();
             updateCartUI();
+            const minimumDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            document.getElementById('delivery-date').min = minimumDate.toISOString().slice(0, 10);
             
             // Close modal when clicking outside drawer
             document.getElementById('cart-modal').addEventListener('click', function(e) {
@@ -1385,20 +1420,37 @@
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
+        function getCheckoutDetails() {
+            const form = document.getElementById('checkout-details');
+            if (!form.reportValidity()) return null;
+            const details = Object.fromEntries(new FormData(form).entries());
+            const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}`);
+            if (requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
+                showToast('Choose a date and time at least 24 hours from now.');
+                return null;
+            }
+            return details;
+        }
+
+        function getOrderMessage(details, paymentInfo = {}) {
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let message = `Hi Bake Me A Wish! I want to place an order from the Raksha Bandhan Catalogue:\n\n`;
+            message += `Name: ${details.name}\nEmail: ${details.email}\nPhone: ${details.phone}\n`;
+            message += `${details.fulfillment}: ${details.deliveryDate} at ${details.pickupTime}\nAddress: ${details.address}\n\nItems:\n`;
+            cart.forEach((item, index) => { message += `${index + 1}. ${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}\n`; });
+            message += `\nTotal amount: INR ${totalPrice}`;
+            if (paymentInfo.paymentId) message += `\nPayment date and time: ${paymentInfo.paymentDateTime}\nPayment ID: ${paymentInfo.paymentId}`;
+            return message;
+        }
+
         function checkoutWhatsApp() {
             if (cart.length === 0) {
                 showToast("Cart is empty! Add items first.");
                 return;
             }
-
-            let message = "🎉 *Hi Bake Me A Wish!* I want to place an order from the Raksha Bandhan Catalogue:%0A%0A";
-            cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}*%0A   Qty: ${item.qty} x ₹${item.price} = ₹${item.price * item.qty}%0A`;
-            });
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            message += `%0A━━━━━━━━━━━━━━━━━%0A*💰 Total Amount: ₹${totalPrice.toLocaleString('en-IN')}*%0A━━━━━━━━━━━━━━━━━%0A%0APlease confirm my order and let me know the payment details!`;
-
-            window.open(`https://wa.me/917705982880?text=${message}`, '_blank');
+            const details = getCheckoutDetails();
+            if (!details) return;
+            window.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(getOrderMessage(details))}`;
         }
 
         // Razorpay Backend Integration
@@ -1408,6 +1460,10 @@
                 showToast("Your cart is empty! Add items first.");
                 return;
             }
+            const details = getCheckoutDetails();
+            if (!details) return;
+
+            const whatsappWindow = window.open('about:blank', '_blank');
 
             const amountInPaise = totalPrice * 100;
             const button = document.getElementById('rzp-button');
@@ -1462,16 +1518,19 @@
                             const verifyResult = await verifyRes.json();
                             if (verifyRes.ok && verifyResult.success) {
                                 showToast("Payment Successful & Verified!");
-                                
-                                let message = "🎉 *Payment Successful & Verified!*%0A%0AI have placed an order and paid online.%0A*Payment ID:* " + response.razorpay_payment_id + "%0A%0A*Order Details:*%0A";
-                                cart.forEach((item, index) => { message += `${index + 1}. ${item.name} (Qty: ${item.qty})%0A`; });
-                                message += `%0A━━━━━━━━━━━━━━━━━%0A*💰 Total Paid: ₹${totalPrice.toLocaleString('en-IN')}*%0A━━━━━━━━━━━━━━━━━`;
+                                const paymentDateTime = new Date().toISOString();
+                                const notifyRes = await fetch('/api/notify-order', {
+                                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ details, items: cart, totalAmount: totalPrice, paymentId: response.razorpay_payment_id, orderId: response.razorpay_order_id, paymentDateTime })
+                                });
+                                if (!notifyRes.ok) throw new Error('Order email could not be sent.');
+                                const message = getOrderMessage(details, { paymentId: response.razorpay_payment_id, paymentDateTime });
                                 
                                 cart = [];
                                 updateCartUI();
                                 toggleCartModal();
                                 
-                                setTimeout(() => window.open(`https://wa.me/917705982880?text=${message}`, '_blank'), 1000);
+                                if (whatsappWindow) whatsappWindow.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(message)}`;
                             } else {
                                 throw new Error("Signature verification failed.");
                             }
@@ -1480,7 +1539,7 @@
                             alert("Payment Verification Failed. Please contact support.");
                         }
                     },
-                    "prefill": { "name": "", "email": "", "contact": "" },
+                    "prefill": { "name": details.name, "email": details.email, "contact": details.phone },
                     "theme": { "color": "#ec4899" }
                 };
                 
