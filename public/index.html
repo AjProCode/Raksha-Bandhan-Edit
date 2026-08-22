@@ -744,7 +744,7 @@
 
         .cart-drawer {
             width: 100%;
-            max-width: 56rem;
+            max-width: 68rem;
             min-height: min(95vh, 54rem);
             max-height: 95vh;
             background-color: #3b0764;
@@ -777,7 +777,7 @@
         .close-cart-btn:hover { background-color: var(--text-light); }
 
         .cart-items-container {
-            flex: 1;
+            width: 34%;
             overflow-y: auto;
             padding: 1.25rem;
             background-color: rgba(88, 28, 135, 0.5);
@@ -785,6 +785,15 @@
             flex-direction: column;
             gap: 1rem;
         }
+
+        .checkout-layout { flex: 1; min-height: 0; display: flex; flex-direction: row-reverse; }
+        .checkout-main { flex: 1; min-width: 0; overflow-y: auto; }
+        .checkout-progress { display: flex; align-items: center; gap: 0.5rem; padding: 1.25rem 1.5rem 0.25rem; }
+        .checkout-step { display: flex; align-items: center; gap: 0.4rem; color: var(--gray-dark); font-size: 0.7rem; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
+        .checkout-step-number { width: 1.6rem; height: 1.6rem; border: 2px solid var(--gray-dark); border-radius: 50%; display: grid; place-items: center; }
+        .checkout-step.active { color: var(--amber-main); }
+        .checkout-step.active .checkout-step-number { background: var(--amber-main); color: var(--text-dark); border-color: var(--text-dark); }
+        .checkout-step-line { flex: 1; height: 2px; background: var(--gray-dark); opacity: 0.5; }
         
         .empty-cart {
             height: 100%;
@@ -828,8 +837,11 @@
         .cart-footer {
             padding: 1.5rem;
             background-color: #3b0764;
-            border-top: 4px solid var(--text-dark);
+            border-top: 0;
         }
+        .checkout-section { padding-top: 1rem; margin-top: 1rem; border-top: 2px solid rgba(229, 231, 235, 0.2); }
+        .checkout-section-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: var(--amber-main); font-size: 0.85rem; }
+        .checkout-section-title i { color: var(--pink-main); }
         .cart-total-row {
             display: flex;
             align-items: center;
@@ -909,6 +921,12 @@
         @media (max-width: 600px) {
             #cart-modal { padding: 0; }
             .cart-drawer { max-height: 100vh; min-height: 100vh; border-left: 0; border-right: 0; border-top: 0; border-bottom: 0; }
+            .checkout-layout { flex-direction: column; overflow-y: auto; }
+            .checkout-main { overflow-y: visible; }
+            .cart-items-container { width: 100%; max-height: 32vh; flex: none; order: 2; padding: 1rem; }
+            .checkout-progress { padding: 1rem 1rem 0.25rem; }
+            .checkout-step { font-size: 0.6rem; }
+            .checkout-step-line { min-width: 0.5rem; }
             .cart-footer { padding: 1rem; }
             .checkout-details .field-row { grid-template-columns: 1fr; }
         }
@@ -1102,56 +1120,61 @@
                 </button>
             </div>
 
-            <div id="cart-items" class="cart-items-container">
-                <!-- Dynamically populated -->
-            </div>
+            <div class="checkout-layout">
+                <div id="cart-items" class="cart-items-container">
+                    <!-- Dynamically populated -->
+                </div>
 
-            <div class="cart-footer">
-                <form id="checkout-details" class="checkout-details">
-                    <h4 class="uppercase">Your checkout details</h4>
-                    <p style="font-size:0.75rem; color:var(--gray-light);">Pickup is available only at <strong>3/131 Gomti Nagar, Lucknow</strong>. For delivery, use WhatsApp to check eligibility before ordering.</p>
-                    <label for="customer-name">Name</label>
-                    <input id="customer-name" name="name" required autocomplete="name">
-                    <label for="customer-email">Email</label>
-                    <input id="customer-email" name="email" type="email" required autocomplete="email">
-                    <label for="customer-phone">Phone number</label>
-                    <input id="customer-phone" name="phone" type="tel" required autocomplete="tel">
-                    <div class="field-row">
-                        <div><label for="delivery-date">Date of pickup</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
-                        <div><label for="pickup-time">Time of pickup</label><input id="pickup-time" name="pickupTime" type="time" required></div>
+                <div class="checkout-main">
+                    <div class="checkout-progress" aria-label="Checkout progress">
+                        <div class="checkout-step active"><span class="checkout-step-number">1</span><span>Details</span></div>
+                        <span class="checkout-step-line"></span>
+                        <div class="checkout-step active"><span class="checkout-step-number">2</span><span>Review</span></div>
+                        <span class="checkout-step-line"></span>
+                        <div class="checkout-step active"><span class="checkout-step-number">3</span><span>Pay</span></div>
                     </div>
-                    <label for="fulfillment">Delivery or pickup</label>
-                    <select id="fulfillment" name="fulfillment" required>
-                        <option value="Pickup">Pickup only</option>
-                    </select>
-                    <label for="customer-address">Address</label>
-                    <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
-                </form>
-                <div class="coupon-row">
-                    <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off" aria-label="Coupon code">
-                    <button type="button" onclick="applyCoupon()" class="btn-amber pop-button border-black-thin">Apply</button>
-                </div>
-                <div id="coupon-status" class="coupon-status" role="status"></div>
-                <div id="discount-row" class="discount-row hidden">
-                    <span>Coupon discount</span><span class="discount-value">-₹0</span>
-                </div>
-                <div class="cart-total-row border-black-thin">
-                    <span class="cart-total-label uppercase font-black">Payable total</span>
-                    <span id="cart-total" class="cart-total-val comic-font">₹0</span>
-                </div>
-                
-                <button onclick="checkoutWhatsApp()" class="btn-emerald pop-button checkout-btn-wa border-black shadow-pop uppercase">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span>Order via WhatsApp</span>
-                </button>
 
-                <button id="rzp-button" onclick="startRazorpayCheckout()" class="btn-blue pop-button checkout-btn-rzp border-black shadow-pop uppercase">
-                    <i id="rzp-button-icon" class="fa-solid fa-credit-card"></i>
-                    <div id="rzp-button-spinner" class="loader"></div>
-                    <span id="rzp-button-text">Pay Online Securely</span>
-                </button>
-                
-                <p class="cart-footer-note uppercase font-black">Secure Payments & Easy Ordering</p>
+                    <div class="cart-footer">
+                        <div class="checkout-section" style="padding-top:0; margin-top:0; border-top:0;">
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-user"></i> 1. Your details</h4>
+                            <form id="checkout-details" class="checkout-details">
+                                <p style="font-size:0.75rem; color:var(--gray-light);">Pickup is available only at <strong>3/131 Gomti Nagar, Lucknow</strong>. For delivery, use WhatsApp to check eligibility before ordering.</p>
+                                <label for="customer-name">Name</label>
+                                <input id="customer-name" name="name" required autocomplete="name">
+                                <label for="customer-email">Email</label>
+                                <input id="customer-email" name="email" type="email" required autocomplete="email">
+                                <label for="customer-phone">Phone number</label>
+                                <input id="customer-phone" name="phone" type="tel" required autocomplete="tel">
+                                <div class="field-row">
+                                    <div><label for="delivery-date">Date of pickup</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
+                                    <div><label for="pickup-time">Time of pickup</label><input id="pickup-time" name="pickupTime" type="time" required></div>
+                                </div>
+                                <label for="fulfillment">Delivery or pickup</label>
+                                <select id="fulfillment" name="fulfillment" required><option value="Pickup">Pickup only</option></select>
+                                <label for="customer-address">Address</label>
+                                <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
+                            </form>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-ticket"></i> 2. Add a coupon</h4>
+                            <div class="coupon-row">
+                                <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off" aria-label="Coupon code">
+                                <button type="button" onclick="applyCoupon()" class="btn-amber pop-button border-black-thin">Apply</button>
+                            </div>
+                            <div id="coupon-status" class="coupon-status" role="status"></div>
+                        </div>
+
+                        <div class="checkout-section">
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-lock"></i> 3. Choose how to order</h4>
+                            <div id="discount-row" class="discount-row hidden"><span>Coupon discount</span><span class="discount-value">-₹0</span></div>
+                            <div class="cart-total-row border-black-thin"><span class="cart-total-label uppercase font-black">Payable total</span><span id="cart-total" class="cart-total-val comic-font">₹0</span></div>
+                            <button onclick="checkoutWhatsApp()" class="btn-emerald pop-button checkout-btn-wa border-black shadow-pop uppercase"><i class="fa-brands fa-whatsapp"></i><span>Order via WhatsApp</span></button>
+                            <button id="rzp-button" onclick="startRazorpayCheckout()" class="btn-blue pop-button checkout-btn-rzp border-black shadow-pop uppercase"><i id="rzp-button-icon" class="fa-solid fa-credit-card"></i><div id="rzp-button-spinner" class="loader"></div><span id="rzp-button-text">Pay Online Securely</span></button>
+                            <p class="cart-footer-note uppercase font-black">Secure Payments & Easy Ordering</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
