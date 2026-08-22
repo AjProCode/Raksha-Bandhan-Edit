@@ -10,7 +10,14 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Serve static files from the 'public' directory
+// Serve static files from the 'public' directory
+app.use(express.static('public')); 
+
+// Explicitly serve index.html for the root route
+const path = require('path');
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
