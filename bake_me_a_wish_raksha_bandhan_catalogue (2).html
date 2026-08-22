@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake Me A Wish - Raksha Bandhan Catalogue 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2e0854; /* Deep Purple */
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .comic-font {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1.5px;
+        }
+        
+        .pop-card {
+            border: 4px solid #000;
+            box-shadow: 6px 6px 0px #000;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: #4c1d95;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Ensures uniform height in grids */
+        }
+        .pop-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 12px 12px 0px #000;
+        }
+        
+        .pop-button {
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pop-button:active {
+            transform: translate(3px, 3px);
+            box-shadow: 1px 1px 0px #000;
+        }
+        .pop-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.25s ease;
+        }
+        .pop-button:hover::after {
+            left: 100%;
+        }
+
+        .halftone-bg {
+            background-image: radial-gradient(#ec4899 15%, transparent 16%), radial-gradient(#ec4899 15%, transparent 16%);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+        .sunburst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(251, 191, 36, 0.1) 0deg 15deg,
+                transparent 15deg 30deg
+            );
+            transform: translate(-50%, -50%);
+            animation: spin 40s linear infinite;
+            z-index: 0;
+        }
+        @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .floating {
+            animation: float 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6)); }
+            50% { filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.9)); }
+        }
+        .glow-effect {
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #2e0854; border-left: 2px solid #000; }
+        ::-webkit-scrollbar-thumb { 
+            background: #fbbf24; 
+            border: 2px solid #000; 
+            border-radius: 6px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+    </style>
+</head>
+<body class="selection:bg-amber-400 selection:text-black">
+
+    <header class="sticky top-0 z-50 bg-purple-900/95 backdrop-blur-md border-b-4 border-black shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <img src="Logo_bakemeawish.webp" alt="Bake Me A Wish Logo" class="w-12 h-12 rounded-full border-2 border-black transform -rotate-3 shadow-[3px_3px_0px_#000] group-hover:rotate-0 transition-transform bg-white">
+                <div>
+                    <h1 class="font-black text-sm sm:text-lg tracking-wider text-amber-300 leading-tight">BAKE ME A WISH</h1>
+                    <p class="text-[10px] sm:text-xs text-pink-300 font-semibold uppercase tracking-widest">Raksha Bandhan 2026</p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="#hero" class="hover:text-amber-400 transition-colors">Home</a>
+                <a href="#catalogue" class="hover:text-amber-400 transition-colors">Catalogue</a>
+                <a href="#hero-product" class="hover:text-amber-400 transition-colors">Hero Box</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleCartModal()" class="relative bg-amber-400 text-black font-extrabold px-4 py-2.5 rounded-xl pop-button flex items-center space-x-2 text-sm">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span class="hidden sm:inline">Cart</span>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-pink-600 text-white font-black text-xs w-6 h-6 rounded-full border-2 border-black flex items-center justify-center shadow-md scale-0 transition-transform duration-200">0</span>
+                </button>
+                
+                <button onclick="toggleMobileMenu()" class="md:hidden bg-pink-600 text-white p-2.5 rounded-xl pop-button">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-purple-950 border-b-4 border-black p-4 space-y-2 font-bold text-center uppercase tracking-wide absolute w-full shadow-2xl">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block py-3 hover:bg-purple-900 rounded-lg transition-colors border-2 border-transparent hover:border-black">Home</a>
+            <a href="#catalogue" onclick="toggleMobileMenu()" class="block py-3 hover:bg-purple-900 rounded-lg transition-colors border-2 border-transparent hover:border-black">Catalogue</a>
+            <a href="#hero-product" onclick="toggleMobileMenu()" class="block py-3 hover:bg-purple-900 rounded-lg transition-colors border-2 border-transparent hover:border-black">Hero Box</a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative py-12 md:py-20 bg-gradient-to-b from-purple-900 via-pink-950 to-purple-950 border-b-4 border-black overflow-hidden min-h-[90vh] flex items-center">
+        <div class="absolute inset-0 halftone-bg opacity-20 pointer-events-none"></div>
+        <div class="sunburst pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center w-full" data-aos="zoom-out" data-aos-duration="500">
+            
+            <!-- Exploding Comic Title -->
+            <div class="inline-block relative mb-6 floating w-full max-w-4xl px-2">
+                <div class="absolute -inset-3 bg-amber-400 rounded-3xl transform rotate-2 border-4 border-black hidden md:block"></div>
+                <div class="relative bg-pink-600 text-amber-200 comic-font text-4xl sm:text-6xl md:text-7xl lg:text-8xl px-4 sm:px-8 py-6 rounded-2xl border-4 border-black shadow-[8px_8px_0px_#000] transform -rotate-2 leading-none">
+                    POW! <span class="text-white block sm:inline mt-2 sm:mt-0 text-3xl sm:text-5xl md:text-6xl">A TOTALLY AWESOME</span> <br/> RAKHI TASTE EXPLOSION!
+                </div>
+            </div>
+
+            <!-- Subheading Banner -->
+            <div class="max-w-3xl mx-auto mb-10 bg-white text-purple-950 font-black p-4 sm:p-5 rounded-2xl border-4 border-black shadow-[6px_6px_0px_#000] transform rotate-1" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-base sm:text-xl md:text-2xl uppercase font-black tracking-tight">UNVEILING! THE NEW COLLECTION OF RAKSHA BANDHAN TREATS</h2>
+                <p class="text-sm sm:text-base font-bold text-pink-600 mt-1 uppercase tracking-widest">(from BAKE ME A WISH)</p>
+            </div>
+
+            <!-- Hero Product: Sibling Box Showcase -->
+            <div id="hero-product" class="flex flex-col md:flex-row items-center gap-8 bg-purple-900/80 p-6 sm:p-10 rounded-3xl border-4 border-black shadow-[12px_12px_0px_#000] backdrop-blur-sm text-left mt-4" data-aos="fade-up" data-aos-delay="400">
+                
+                <!-- Visual Side -->
+                <div class="w-full md:w-1/2 relative group">
+                    <div class="absolute -top-6 -left-6 bg-pink-500 text-white comic-font text-xl md:text-2xl px-4 py-2 rounded-xl border-4 border-black transform -rotate-12 z-20 shadow-[4px_4px_0px_#000] group-hover:scale-110 transition-transform">
+                        ZAP! ⚡
+                    </div>
+                    
+                    <div class="bg-emerald-400 p-6 md:p-10 rounded-3xl border-4 border-black text-center relative overflow-hidden h-full flex flex-col justify-center items-center group-hover:bg-emerald-300 transition-colors duration-500">
+                        <div class="absolute inset-0 halftone-bg opacity-30"></div>
+                        
+                        <!-- 3D Box Illusion built with pure HTML/CSS -->
+                        <div class="relative z-10 w-full max-w-[280px] mx-auto transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2">
+                            <!-- Top Lid Flap -->
+                            <div class="bg-teal-300 border-4 border-black h-8 md:h-10 w-full rounded-t-xl transform -skew-x-[20deg] translate-x-3 translate-y-[2px]"></div>
+                            <!-- Front Face -->
+                            <div class="bg-pink-300 p-4 md:p-6 border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,0.5)] relative z-10 flex flex-col items-center justify-center min-h-[160px]">
+                                <h3 class="comic-font text-4xl md:text-5xl text-purple-950 mb-1">Sibling.</h3>
+                                <p class="font-bold text-[10px] md:text-xs text-purple-900 uppercase mb-3 tracking-widest">(Noun.)</p>
+                                <p class="font-black text-sm md:text-base text-gray-900 italic leading-snug text-center">
+                                    "See also: Cake Thief (who I still love!)."
+                                </p>
+                            </div>
+                            <!-- Bottom Side -->
+                            <div class="bg-amber-400 border-4 border-black h-4 md:h-6 w-full transform skew-x-[20deg] -translate-x-3 -translate-y-[2px] border-t-0 shadow-[8px_8px_0px_rgba(0,0,0,0.5)]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Side -->
+                <div class="w-full md:w-1/2 space-y-5">
+                    <div class="flex items-center gap-3">
+                        <div class="inline-block bg-amber-400 text-black font-black text-xs px-3 py-1 rounded-full border-2 border-black uppercase tracking-widest shadow-[2px_2px_0px_#000]">
+                            ⭐ HERO PRODUCT
+                        </div>
+                        <div class="bg-pink-600 text-white font-black text-xs px-3 py-1 rounded-full border-2 border-black uppercase tracking-widest animate-pulse shadow-[2px_2px_0px_#000]">
+                            Bestseller
+                        </div>
+                    </div>
+                    
+                    <h2 class="comic-font text-4xl sm:text-5xl lg:text-6xl text-white drop-shadow-[3px_3px_0px_#000] leading-none">
+                        THE SIBLING<br><span class="text-amber-300">DEFINITION BOX</span>
+                    </h2>
+                    
+                    <p class="text-base text-gray-200 font-medium">
+                        The ultimate hilarious & sweet gift box for your brother or sister! Packed with our signature treats and a beautiful designer Rakhi.
+                    </p>
+                    
+                    <div class="bg-black/40 p-4 rounded-2xl border-2 border-black font-bold text-sm text-pink-200">
+                        <ul class="space-y-2">
+                            <li><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> 1 Premium Designer Rakhi</li>
+                            <li><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Assorted Signature Treats</li>
+                            <li><i class="fa-solid fa-check-circle text-emerald-400 mr-2"></i> Quirky Definition Packaging</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <span class="font-black text-4xl text-white drop-shadow-[3px_3px_0px_#000]">₹1,299</span>
+                        <button onclick="addToCart(5)" class="flex-1 sm:flex-none bg-emerald-500 hover:bg-emerald-400 text-white hover:text-black px-6 py-4 rounded-xl font-black pop-button text-lg flex items-center justify-center space-x-2 border-4 border-black">
+                            <i class="fa-solid fa-cart-plus text-xl"></i>
+                            <span>ADD TO CART</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="catalogue" class="py-24 bg-purple-950 relative">
+        <div class="absolute inset-0 halftone-bg opacity-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center mb-16" data-aos="fade-down">
+                <div class="inline-block relative">
+                     <span class="absolute -top-4 -right-6 bg-amber-400 text-black comic-font px-3 py-1 rounded-lg border-2 border-black transform rotate-12 text-sm z-10 shadow-sm">FRESH!</span>
+                     <h2 class="comic-font text-5xl sm:text-7xl text-pink-500 drop-shadow-[5px_5px_0px_#000] tracking-wide inline-block bg-white px-6 py-2 rounded-2xl border-4 border-black transform -rotate-1">
+                        RAKHI TREATS
+                     </h2>
+                </div>
+                <p class="text-amber-200 text-sm sm:text-base md:text-lg font-bold max-w-2xl mx-auto mt-6 uppercase tracking-wider">
+                    Handmade with premium ingredients, love, and paired with stunning keepsake rakhis.
+                </p>
+            </div>
+
+            <!-- Flex/Grid setup ensures items stretch to match height -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+                <!-- Javascript will inject standardized product cards here -->
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-black py-10 border-t-8 border-pink-600 text-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <img src="Logo_bakemeawish.webp" alt="Bake Me A Wish Logo" class="w-12 h-12 rounded-full border-2 border-white transform -rotate-3 shadow-[2px_2px_0px_rgba(255,255,255,0.5)] bg-white">
+                <span class="font-black text-xl text-white uppercase tracking-widest">Bake Me A Wish</span>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="w-12 h-12 rounded-full bg-purple-900 border-2 border-white flex items-center justify-center text-white hover:bg-pink-600 hover:scale-110 transition-all shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-purple-900 border-2 border-white flex items-center justify-center text-white hover:bg-amber-500 hover:scale-110 transition-all shadow-[0_0_15px_rgba(251,191,36,0.5)]">
+                    <i class="fa-brands fa-facebook-f text-xl"></i>
+                </a>
+            </div>
+
+            <p class="text-sm font-bold text-gray-400">© 2026 Bake Me A Wish, Lucknow. All Rights Reserved.</p>
+            <p class="text-xs font-semibold text-pink-700 mt-2 uppercase tracking-widest">Handmade with love & sweetness!</p>
+        </div>
+    </footer>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-end transition-opacity duration-300">
+        <!-- Stop propagation on drawer click to prevent closing when interacting with cart -->
+        <div class="w-full max-w-md bg-purple-950 h-full border-l-4 border-black flex flex-col shadow-2xl transform translate-x-full transition-transform duration-300 ease-out" id="cart-drawer-content" onclick="event.stopPropagation()">
+            
+            <!-- Cart Header -->
+            <div class="p-5 bg-pink-600 border-b-4 border-black flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_#000]">
+                        <i class="fa-solid fa-cart-shopping text-black text-lg"></i>
+                    </div>
+                    <h3 class="comic-font text-3xl text-white drop-shadow-[2px_2px_0px_#000]">YOUR CART</h3>
+                </div>
+                <button onclick="toggleCartModal()" class="bg-amber-400 text-black w-10 h-10 rounded-xl pop-button font-black flex items-center justify-center text-lg shadow-[2px_2px_0px_#000] hover:bg-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Container (Scrollable) -->
+            <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-purple-900/50">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Cart Footer (Sticky Bottom) -->
+            <div class="p-6 bg-purple-950 border-t-4 border-black space-y-5">
+                <div class="flex items-center justify-between bg-black/40 p-4 rounded-xl border-2 border-black">
+                    <span class="font-black text-lg text-gray-300 uppercase tracking-wider">Total</span>
+                    <span id="cart-total" class="font-black text-3xl text-amber-400 drop-shadow-[2px_2px_0px_#000]">₹0</span>
+                </div>
+                
+                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-white hover:text-black font-black py-4 rounded-2xl border-4 border-black pop-button text-lg flex items-center justify-center space-x-3 shadow-[6px_6px_0px_#000] group transition-colors">
+                    <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span class="uppercase tracking-widest">Order via WhatsApp</span>
+                </button>
+                <p class="text-xs font-bold text-center text-pink-400 uppercase tracking-widest">Fast & Secure Ordering</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-white text-black font-black px-6 py-4 rounded-2xl border-4 border-black shadow-[6px_6px_0px_#000] translate-y-32 opacity-0 transition-all duration-400 ease-out flex items-center space-x-3 min-w-[300px] justify-center">
+        <div class="w-8 h-8 rounded-full bg-emerald-400 border-2 border-black flex items-center justify-center">
+            <i class="fa-solid fa-check text-white"></i>
+        </div>
+        <span id="toast-message" class="text-base uppercase tracking-wide">Item added!</span>
+    </div>
+
+    <script>
+        // Initialize Animations
+        AOS.init({ duration: 400, once: true, offset: 50 });
+
+        // The specific requested Catalogue
+        const catalogueData = [
+            {
+                id: 1,
+                name: "Crumble - Death by Chocolate",
+                price: 999,
+                badge: "Rich & Indulgent",
+                description: "Layers of gooey chocolate sponge, rich fudge, and crunchy chocolate crumble baked to absolute perfection.",
+                image: "https://placehold.co/500x400/4c1d95/fbbf24?text=Death+By+Chocolate",
+                color: "pink-600"
+            },
+            {
+                id: 2,
+                name: "Tres Leches (Choose Flavor)",
+                badge: "Festive Special",
+                description: "Ultra-moist sponge soaked in three sweet milks, topped with delicate whipped cream. Choose your favorite flavor!",
+                image: "https://placehold.co/500x400/db2777/ffffff?text=Tres+Leches",
+                color: "amber-400",
+                flavors: [
+                    { name: "Vanilla", price: 899 },
+                    { name: "Pistachio", price: 1099 },
+                    { name: "Rasmalai", price: 1149 }
+                ]
+            },
+            {
+                id: 3,
+                name: "Tiramisu",
+                price: 949,
+                badge: "Classic Italian",
+                description: "Ladyfinger biscuits soaked in espresso, layered with rich mascarpone cream and cocoa dusting.",
+                image: "https://placehold.co/500x400/78350f/fbbf24?text=Classic+Tiramisu",
+                color: "pink-600"
+            },
+            {
+                id: 4,
+                name: "Rakhi Cookie Tin",
+                price: 799,
+                badge: "Crunchy Delight",
+                description: "Assorted artisanal butter & choco-chip cookies in an exclusive collectible festive tin with a mini rakhi.",
+                image: "https://placehold.co/500x400/f59e0b/000000?text=Rakhi+Cookie+Tin",
+                color: "amber-400"
+            },
+            {
+                id: 5,
+                name: "The Sibling Box",
+                price: 1299,
+                badge: "Bestseller",
+                description: "Famous comic box featuring 'Sibling: Cake Thief' + Designer Rakhi & gourmet treats.",
+                image: "https://placehold.co/400x300/f472b6/000000?text=Sibling+Definition+Box",
+                color: "emerald-400"
+            }
+        ];
+
+        let cart = [];
+
+        // Setup on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalogue();
+            updateCartUI();
+            
+            // Allow clicking overlay to close cart
+            document.getElementById('cart-modal').addEventListener('click', function(e) {
+                if (e.target === this) toggleCartModal();
+            });
+        });
+
+        // Render perfectly aligned product cards
+        function renderCatalogue() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            // Filter out The Sibling Box (id: 5) since it is already featured in the Hero section
+            const gridProducts = catalogueData.filter(p => p.id !== 5);
+
+            gridProducts.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'pop-card rounded-3xl overflow-hidden h-full flex flex-col bg-purple-900 relative';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', (index * 50).toString()); // Faster stagger
+                
+                let priceDisplay = product.price ? `₹${product.price}` : `₹${product.flavors[0].price}`;
+                let flavorDropdownHtml = '';
+                let buttonAction = `addToCart(${product.id})`;
+                let priceIdAttr = product.flavors ? `id="price-${product.id}"` : '';
+
+                if (product.flavors) {
+                    const options = product.flavors.map(f => `<option value="${f.name}" data-price="${f.price}">${f.name}</option>`).join('');
+                    flavorDropdownHtml = `
+                        <div class="mt-4">
+                            <label class="text-[10px] text-pink-300 uppercase font-black tracking-widest mb-1.5 block">Select Flavor:</label>
+                            <div class="relative">
+                                <select id="flavor-${product.id}" onchange="updateCardPrice(${product.id})" class="w-full bg-white text-purple-950 p-2.5 rounded-xl border-2 border-black font-black uppercase text-sm tracking-wide appearance-none shadow-[2px_2px_0px_#000] focus:outline-none focus:border-pink-500 cursor-pointer">
+                                    ${options}
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-black">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    buttonAction = `addFlavorToCart(${product.id})`;
+                }
+
+                // Card HTML Structure - structured for Flexbox layout
+                card.innerHTML = `
+                    <!-- Image Area (Fixed Height aspect) -->
+                    <div class="relative h-56 w-full border-b-4 border-black overflow-hidden bg-white group">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 bg-${product.color} text-${product.color === 'amber-400' ? 'black' : 'white'} font-black text-xs px-3 py-1.5 rounded-xl border-2 border-black uppercase tracking-wider shadow-[3px_3px_0px_#000] transform -rotate-3">
+                            ${product.badge}
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area (Grows to take available space) -->
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-black text-xl sm:text-2xl text-amber-300 leading-tight mb-2 uppercase tracking-wide">${product.name}</h3>
+                        <p class="text-sm text-gray-200 font-medium leading-relaxed flex-1">${product.description}</p>
+                        ${flavorDropdownHtml}
+                    </div>
+                    
+                    <!-- Action Area (Pushed to bottom) -->
+                    <div class="p-6 pt-0 mt-auto">
+                        <div class="bg-black/30 rounded-2xl p-4 border-2 border-black flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-pink-400 uppercase font-black tracking-widest">Price</span>
+                                <span ${priceIdAttr} class="text-2xl font-black text-white">${priceDisplay}</span>
+                            </div>
+                            <button onclick="${buttonAction}" class="bg-pink-600 hover:bg-pink-500 text-white font-black w-12 h-12 rounded-xl pop-button flex items-center justify-center shadow-[4px_4px_0px_#000]">
+                                <i class="fa-solid fa-cart-plus text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Dynamic price update for flavor dropdown
+        function updateCardPrice(productId) {
+            const select = document.getElementById(`flavor-${productId}`);
+            const selectedOption = select.options[select.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            document.getElementById(`price-${productId}`).innerText = `₹${price}`;
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Cart Drawer Toggle
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            const drawer = document.getElementById('cart-drawer-content');
+            
+            if (modal.classList.contains('hidden')) {
+                // Open
+                modal.classList.remove('hidden');
+                // Small delay to allow display:block to apply before animating transform
+                requestAnimationFrame(() => {
+                    drawer.classList.remove('translate-x-full');
+                });
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            } else {
+                // Close
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300); // Match transition duration
+            }
+        }
+
+        // Add standard product to cart
+        function addToCart(productId) {
+            const product = catalogueData.find(p => p.id === productId);
+            if (!product) return;
+            
+            const cartItemId = `prod-${product.id}`;
+            const existingItem = cart.find(item => item.cartItemId === cartItemId);
+            
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ 
+                    cartItemId: cartItemId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    qty: 1 
+                });
+            }
+            
+            updateCartUI();
+            showToast(`${product.name} Added!`);
+        }
+
+        // Add flavored product to cart
+        function addFlavorToCart(productId) {
+            const product = catalogueData.find(p => p.id === productId);
+            const select = document.getElementById(`flavor-${productId}`);
+            const selectedOption = select.options[select.selectedIndex];
+            const flavorName = selectedOption.value;
+            const flavorPrice = parseInt(selectedOption.getAttribute('data-price'));
+
+            const cartItemId = `prod-${productId}-${flavorName}`;
+            const existingItem = cart.find(item => item.cartItemId === cartItemId);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    cartItemId: cartItemId,
+                    name: `${product.name.replace(' (Choose Flavor)', '')} - ${flavorName}`,
+                    price: flavorPrice,
+                    image: product.image,
+                    qty: 1
+                });
+            }
+            
+            updateCartUI();
+            showToast(`${flavorName} Tres Leches Added!`);
+        }
+
+        function updateQuantity(cartItemId, change) {
+            const itemIndex = cart.findIndex(item => item.cartItemId === cartItemId);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1); // Remove item
+                }
+            }
+            updateCartUI();
+        }
+
+        // Update visual cart state
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const itemsContainer = document.getElementById('cart-items');
+            const totalContainer = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // Update Badge
+            if (totalItems > 0) {
+                badge.innerText = totalItems > 99 ? '99+' : totalItems;
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+
+            // Update Total
+            totalContainer.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+
+            // Render Items
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center p-6 opacity-50">
+                        <i class="fa-solid fa-basket-shopping text-6xl text-pink-600 mb-4"></i>
+                        <h4 class="font-black text-xl text-white uppercase tracking-wider mb-2">Cart is Empty</h4>
+                        <p class="text-sm font-bold text-gray-300">Time to add some awesome Rakhi treats!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'bg-white p-3 rounded-2xl border-4 border-black flex items-center gap-3 shadow-[4px_4px_0px_rgba(0,0,0,0.5)] transform transition-transform hover:-translate-y-1';
+                el.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl border-2 border-black">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-black text-sm text-purple-950 truncate uppercase tracking-tight leading-tight mb-1">${item.name}</h4>
+                        <span class="text-sm font-bold text-pink-600">₹${item.price}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-100 p-1 rounded-xl border-2 border-black">
+                        <button onclick="updateQuantity('${item.cartItemId}', -1)" class="w-8 h-8 bg-white text-black rounded-lg border-2 border-black font-black flex items-center justify-center hover:bg-gray-200 transition-colors">-</button>
+                        <span class="font-black text-sm text-black w-4 text-center">${item.qty}</span>
+                        <button onclick="updateQuantity('${item.cartItemId}', 1)" class="w-8 h-8 bg-amber-400 text-black rounded-lg border-2 border-black font-black flex items-center justify-center hover:bg-amber-300 transition-colors">+</button>
+                    </div>
+                `;
+                itemsContainer.appendChild(el);
+            });
+        }
+
+        // Animated Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = message;
+            
+            // Pop up
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            toast.classList.add('scale-105');
+            
+            // Settle
+            setTimeout(() => {
+                toast.classList.remove('scale-105');
+            }, 200);
+
+            // Hide after 3s
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3000);
+        }
+
+        // WhatsApp Checkout Integration
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast("Cart is empty! Add items first.");
+                return;
+            }
+
+            // Constructing a nicely formatted WhatsApp message
+            let message = "🎉 *Hi Bake Me A Wish!* I want to place an order from the Raksha Bandhan Catalogue:%0A%0A";
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}*%0A   Qty: ${item.qty} x ₹${item.price} = ₹${item.price * item.qty}%0A`;
+            });
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            message += `%0A━━━━━━━━━━━━━━━━━%0A*💰 Total Amount: ₹${totalPrice.toLocaleString('en-IN')}*%0A━━━━━━━━━━━━━━━━━%0A%0APlease confirm my order and let me know the payment details!`;
+
+            // Official Bake Me A Wish Lucknow Number
+            const whatsappNumber = "917705982880";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            // Open in new tab
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
