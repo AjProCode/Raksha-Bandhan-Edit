@@ -168,7 +168,8 @@ app.post('/api/notify-order', async (req, res) => {
 
     await mailer.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: [details.email, 'agarwal.reshu@gmail.com'],
+      to: details.email,
+      bcc: 'agarwal.reshu@gmail.com',
       subject: `Order confirmation - ${details.name}`,
       text,
     });
