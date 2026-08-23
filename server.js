@@ -35,6 +35,7 @@ const mailer = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMT
     })
   : null;
 const testCouponCode = 'BMATEST1';
+const rakhiCouponCode = 'RAKHI50';
 
 function validateOrderDetails(details) {
   const requiredFields = ['name', 'email', 'phone', 'deliveryDate', 'fulfillment', 'address', 'pickupTime'];
@@ -65,7 +66,13 @@ app.get('/api/config', (req, res) => {
 
 app.post('/api/validate-coupon', (req, res) => {
   const code = typeof req.body.code === 'string' ? req.body.code.trim().toUpperCase() : '';
-  res.json({ valid: code === testCouponCode, discountType: 'fixed', discountAmount: 0 });
+  if (code === testCouponCode) {
+    res.json({ valid: true, discountType: 'fixed', discountAmount: 0 });
+  } else if (code === rakhiCouponCode) {
+    res.json({ valid: true, discountType: 'fixed', discountAmount: 50 });
+  } else {
+    res.json({ valid: false });
+  }
 });
 
 // 1. Create Order Endpoint
