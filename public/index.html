@@ -951,11 +951,13 @@
 
             <!-- Actions -->
             <div class="header-actions">
-                <button onclick="toggleCartModal()" class="btn-amber pop-button border-black cart-btn">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span style="margin-left: 0.5rem;" class="hidden-mobile">Cart</span>
-                    <span id="cart-badge" class="cart-badge border-black-thin">0</span>
-                </button>
+                <div style="position: relative; display: inline-flex;">
+                    <button onclick="toggleCartModal()" class="btn-amber pop-button border-black cart-btn">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span style="margin-left: 0.5rem;" class="hidden-mobile">Cart</span>
+                    </button>
+                    <span id="cart-badge" class="cart-badge border-black-thin" style="pointer-events: none; z-index: 10;">0</span>
+                </div>
                 
                 <button onclick="toggleMobileMenu()" class="btn-pink pop-button border-black mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
@@ -1234,7 +1236,10 @@
             renderCatalogue();
             updateCartUI();
             const minimumDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
-            document.getElementById('delivery-date').min = minimumDate.toISOString().slice(0, 10);
+            const maxDateStr = '2026-08-30';
+            const dateInput = document.getElementById('delivery-date');
+            dateInput.min = minimumDate.toISOString().slice(0, 10);
+            dateInput.max = maxDateStr;
             
             // Close modal when clicking outside drawer
             document.getElementById('cart-modal').addEventListener('click', function(e) {
@@ -1513,6 +1518,11 @@
             const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}:00+05:30`);
             if (requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
                 showToast('Choose a date and time at least 24 hours from now.');
+                return null;
+            }
+            const maxDate = new Date('2026-08-31T00:00:00+05:30');
+            if (requestedTime.getTime() >= maxDate.getTime()) {
+                showToast('We are not accepting orders for after August 30th.');
                 return null;
             }
             return details;

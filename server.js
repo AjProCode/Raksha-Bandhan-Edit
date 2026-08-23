@@ -50,6 +50,11 @@ function validateOrderDetails(details) {
     return 'Delivery or pickup must be scheduled at least 24 hours from now.';
   }
 
+  const maxDate = new Date('2026-08-31T00:00:00+05:30');
+  if (requestedTime.getTime() >= maxDate.getTime()) {
+    return 'We are not accepting orders for after August 30th.';
+  }
+
   return null;
 }
 
