@@ -1148,6 +1148,20 @@
                                 <select id="fulfillment" name="fulfillment" required><option value="Pickup">Pickup only</option></select>
                                 <label for="customer-address">Address</label>
                                 <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
+                                
+                                <label for="sticker-message" style="margin-top: 1rem;">Choose a Sticker Message (Optional)</label>
+                                <select id="sticker-message" name="stickerMessage">
+                                    <option value="">None</option>
+                                    <option value="The Bank Balance">The Bank Balance (Protect my bank balance)</option>
+                                    <option value="The Snack Protector">The Snack Protector (Stop eating my leftovers)</option>
+                                    <option value="Mom’s Favorite">Mom’s Favorite (Mom's second favorite child)</option>
+                                    <option value="The Peace Treaty">The Peace Treaty (Stop stealing hoodies)</option>
+                                    <option value="The Ulterior Motive">The Ulterior Motive (What did you break?)</option>
+                                    <option value="The Wi-Fi Password">The Wi-Fi Password (Give me the Wi-Fi)</option>
+                                </select>
+                                
+                                <label for="custom-message">Custom Message (Optional)</label>
+                                <textarea id="custom-message" name="customMessage" rows="2" placeholder="Any custom message?"></textarea>
                             </form>
                         </div>
 
@@ -1530,13 +1544,27 @@
 
         function getOrderMessage(details, paymentInfo = {}) {
             const totalPrice = getPayableTotal();
-            let message = `Hi Bake Me A Wish! I want to place an order from the Raksha Bandhan Catalogue:\n\n`;
+            let message = '';
+            
+            if (paymentInfo.paymentId) {
+                message += `✅ *PAYMENT SUCCESSFUL* ✅\nPayment ID: ${paymentInfo.paymentId}\nDate: ${paymentInfo.paymentDateTime}\n\n`;
+            }
+            
+            message += `Hi Bake Me A Wish! I want to place an order from the Raksha Bandhan Catalogue:\n\n`;
             message += `Name: ${details.name}\nEmail: ${details.email}\nPhone: ${details.phone}\n`;
-            message += `${details.fulfillment}: ${details.deliveryDate} at ${details.pickupTime}\nAddress: ${details.address}\n\nItems:\n`;
+            message += `${details.fulfillment}: ${details.deliveryDate} at ${details.pickupTime}\nAddress: ${details.address}\n\n`;
+            
+            if (details.stickerMessage) {
+                message += `Sticker Message: ${details.stickerMessage}\n`;
+            }
+            if (details.customMessage) {
+                message += `Custom Message: ${details.customMessage}\n`;
+            }
+            
+            message += `\nItems:\n`;
             cart.forEach((item, index) => { message += `${index + 1}. ${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}\n`; });
             message += `\nTotal amount: INR ${totalPrice}`;
             if (appliedCouponCode) message += `\nCoupon applied: ${appliedCouponCode}`;
-            if (paymentInfo.paymentId) message += `\nPayment date and time: ${paymentInfo.paymentDateTime}\nPayment ID: ${paymentInfo.paymentId}`;
             return message;
         }
 
