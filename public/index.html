@@ -1047,7 +1047,7 @@
                     </ul>
 
                     <div class="sibling-action">
-                        <span class="sibling-price comic-font">₹1,400 <span style="text-decoration: line-through; font-size: 0.6em; color: #666; margin-left: 0.5rem;">₹1,625</span></span>
+                        <span class="sibling-price comic-font">₹1,400 <span style="text-decoration: line-through; font-size: 0.85em; color: #ef4444; margin-left: 0.5rem;">₹1,625</span></span>
                         <button onclick="addSpecialToCart('prod-sibling', 'The Sibling Box', 1400, 'https://placehold.co/400x300/f472b6/000000?text=Sibling+Definition+Box')" class="btn-amber pop-button border-black shadow-pop">
                             <i class="fa-solid fa-cart-plus" style="margin-right: 0.5rem"></i>
                             <span class="uppercase">ADD TO CART</span>
@@ -1167,6 +1167,7 @@
 
                         <div class="checkout-section">
                             <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-ticket"></i> 2. Add a coupon</h4>
+                            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.75rem; background: var(--amber-light); padding: 0.5rem; border: 2px solid var(--text-dark); border-radius: 0.4rem; text-align: center;">🎉 Use code <strong style="font-size: 1.1em; color: var(--pink-main);">RAKHI50</strong> for ₹50 off your order!</p>
                             <div class="coupon-row">
                                 <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off" aria-label="Coupon code">
                                 <button type="button" onclick="applyCoupon()" class="btn-amber pop-button border-black-thin">Apply</button>
@@ -1245,6 +1246,7 @@
 
         let cart = [];
         let appliedCouponCode = '';
+        let discountAmount = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
             renderCatalogue();
@@ -1429,7 +1431,8 @@
         }
 
         function getPayableTotal() {
-            return appliedCouponCode ? 1 : getCartSubtotal();
+            if (appliedCouponCode === 'BMATEST1') return 1;
+            return Math.max(1, getCartSubtotal() - discountAmount);
         }
 
         async function applyCoupon() {
@@ -1450,10 +1453,18 @@
                 const result = await response.json();
                 if (!result.valid) throw new Error('Invalid coupon');
                 appliedCouponCode = code.toUpperCase();
-                status.innerText = 'Coupon applied. Payable total is ₹1.';
+                
+                if (appliedCouponCode === 'BMATEST1') {
+                    discountAmount = getCartSubtotal() - 1;
+                    status.innerText = 'Coupon applied. Payable total is ₹1.';
+                } else {
+                    discountAmount = result.discountAmount || 0;
+                    status.innerText = `Coupon applied! You saved ₹${discountAmount}.`;
+                }
                 updateCartUI();
             } catch (error) {
                 appliedCouponCode = '';
+                discountAmount = 0;
                 status.innerText = 'Coupon is not valid.';
                 updateCartUI();
             }
@@ -1464,7 +1475,10 @@
             const itemsContainer = document.getElementById('cart-items');
             const totalContainer = document.getElementById('cart-total');
 
-            if (cart.length === 0) appliedCouponCode = '';
+            if (cart.length === 0) {
+                appliedCouponCode = '';
+                discountAmount = 0;
+            }
 
             const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
             const subtotal = getCartSubtotal();
