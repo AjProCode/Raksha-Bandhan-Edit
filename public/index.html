@@ -1550,7 +1550,10 @@
             const details = getCheckoutDetails();
             if (!details) return;
 
-            const whatsappWindow = window.open('about:blank', '_blank');
+            if (details.fulfillment === 'Delivery') {
+                showToast("Online checkout is available for pickup only. Please use 'Order via WhatsApp' to check delivery eligibility.");
+                return;
+            }
 
             const amountInPaise = totalPrice * 100;
             const button = document.getElementById('rzp-button');
@@ -1617,13 +1620,12 @@
                                 updateCartUI();
                                 toggleCartModal();
                                 
-                                if (whatsappWindow) whatsappWindow.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(message)}`;
+                                window.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(message)}`;
                             } else {
                                 throw new Error("Signature verification failed.");
                             }
                         } catch (err) {
                             console.error("Verification Error:", err);
-                            if (whatsappWindow) whatsappWindow.close();
                             alert("Payment verification failed. Please contact support before trying again.");
                         }
                     },
@@ -1633,14 +1635,12 @@
                 
                 const rzp1 = new Razorpay(options);
                 rzp1.on('payment.failed', function (response){
-                    if (whatsappWindow) whatsappWindow.close();
                     alert("Payment Failed: " + response.error.description);
                 });
                 rzp1.open();
 
             } catch (error) {
                 console.error("Checkout Error:", error);
-                if (whatsappWindow) whatsappWindow.close();
                 alert("Error initiating checkout. Ensure the Node server (server.js) is running.");
             } finally {
                 // Restore Button State
