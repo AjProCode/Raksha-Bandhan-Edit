@@ -153,6 +153,8 @@ app.post('/api/notify-order', async (req, res) => {
       `Pickup/delivery time: ${details.pickupTime}`,
       `Address: ${details.address}`,
       '',
+      details.stickerMessage ? `Sticker Message: ${details.stickerMessage}` : '',
+      details.customMessage ? `Custom Message: ${details.customMessage}` : '',
       'Items:',
       itemLines,
       '',
@@ -162,7 +164,7 @@ app.post('/api/notify-order', async (req, res) => {
       `Payment date and time: ${paymentDateTime || new Date().toISOString()}`,
       `Payment ID: ${paymentId}`,
       `Razorpay order ID: ${orderId || 'N/A'}`,
-    ].join('\n');
+    ].filter(line => line !== '').join('\n');
 
     await mailer.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
