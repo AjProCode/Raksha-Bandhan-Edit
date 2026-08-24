@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bake Me A Wish - Raksha Bandhan Catalogue 2026</title>
+    <meta name="description" content="Order exclusive Raksha Bandhan treats from Bake Me A Wish! Featuring our special Sibling Definition Box, Rakhi Cookie Tins, and delicious Tres Leches.">
+    <meta name="keywords" content="Rakhi, Raksha Bandhan, Bakery, Sweets, Gift Box, Sibling Box, Bake Me A Wish, Lucknow">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Bake Me A Wish - Rakhi 2026">
+    <meta property="og:description" content="Surprise your sibling with our ultimate Rakhi treats. Death by Chocolate, Rasmalai Tres Leches, and the mega Sibling Box!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://placehold.co/1200x630/ec4899/ffffff?text=Rakhi+Treats+by+Bake+Me+A+Wish">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://placehold.co/32x32/ec4899/ffffff?text=B">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation Library -->
@@ -13,7 +28,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Razorpay Checkout -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    
+
     <style>
         :root {
             --purple-dark: #2e0854;
@@ -64,31 +79,90 @@
             padding: 0 1rem;
         }
 
-        .border-black { border: 4px solid var(--text-dark); }
-        .border-black-thin { border: 2px solid var(--text-dark); }
-        
-        .shadow-pop { box-shadow: 4px 4px 0px var(--text-dark); }
-        .shadow-pop-lg { box-shadow: 8px 8px 0px var(--text-dark); }
-        .shadow-pop-xl { box-shadow: 12px 12px 0px var(--text-dark); }
+        .border-black {
+            border: 4px solid var(--text-dark);
+        }
 
-        .uppercase { text-transform: uppercase; }
-        .text-center { text-align: center; }
-        .hidden { display: none !important; }
-        
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 0.5rem; }
-        .gap-4 { gap: 1rem; }
-        .gap-6 { gap: 1.5rem; }
-        .gap-8 { gap: 2rem; }
+        .border-black-thin {
+            border: 2px solid var(--text-dark);
+        }
+
+        .shadow-pop {
+            box-shadow: 4px 4px 0px var(--text-dark);
+        }
+
+        .shadow-pop-lg {
+            box-shadow: 8px 8px 0px var(--text-dark);
+        }
+
+        .shadow-pop-xl {
+            box-shadow: 12px 12px 0px var(--text-dark);
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
 
         /* Typography */
-        h1, h2, h3, h4 { line-height: 1.2; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
 
         /* Background Effects */
         .halftone-bg {
@@ -96,43 +170,74 @@
             background-size: 24px 24px;
             background-position: 0 0, 12px 12px;
         }
-        
+
         .sunburst {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 200%;
             height: 200%;
-            background: repeating-conic-gradient(
-                from 0deg,
-                rgba(251, 191, 36, 0.1) 0deg 15deg,
-                transparent 15deg 30deg
-            );
+            background: repeating-conic-gradient(from 0deg,
+                    rgba(251, 191, 36, 0.1) 0deg 15deg,
+                    transparent 15deg 30deg);
             transform: translate(-50%, -50%);
             animation: spin 60s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+        @keyframes spin {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
-        .floating { animation: float 4s ease-in-out infinite; }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .5;
+            }
         }
-        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
-            50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+
+            0%,
+            100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
         }
-        
+
         /* Buttons */
         .pop-button {
             border: 3px solid var(--text-dark);
@@ -148,12 +253,12 @@
             justify-content: center;
             border-radius: 0.75rem;
         }
-        
+
         .pop-button:active {
             transform: translate(3px, 3px);
             box-shadow: 1px 1px 0px var(--text-dark);
         }
-        
+
         .pop-button::after {
             content: '';
             position: absolute;
@@ -161,20 +266,50 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: all 0.4s ease;
         }
-        
-        .pop-button:hover::after { left: 100%; }
 
-        .btn-amber { background-color: var(--amber-main); color: var(--text-dark); }
-        .btn-amber:hover { background-color: var(--amber-hover); }
-        .btn-pink { background-color: var(--pink-main); color: var(--text-light); }
-        .btn-pink:hover { background-color: var(--pink-hover); }
-        .btn-emerald { background-color: var(--emerald-main); color: var(--text-light); }
-        .btn-emerald:hover { background-color: var(--emerald-hover); color: var(--text-dark); }
-        .btn-blue { background-color: #2563eb; color: var(--text-light); }
-        .btn-blue:hover { background-color: #1d4ed8; }
+        .pop-button:hover::after {
+            left: 100%;
+        }
+
+        .btn-amber {
+            background-color: var(--amber-main);
+            color: var(--text-dark);
+        }
+
+        .btn-amber:hover {
+            background-color: var(--amber-hover);
+        }
+
+        .btn-pink {
+            background-color: var(--pink-main);
+            color: var(--text-light);
+        }
+
+        .btn-pink:hover {
+            background-color: var(--pink-hover);
+        }
+
+        .btn-emerald {
+            background-color: var(--emerald-main);
+            color: var(--text-light);
+        }
+
+        .btn-emerald:hover {
+            background-color: var(--emerald-hover);
+            color: var(--text-dark);
+        }
+
+        .btn-blue {
+            background-color: #2563eb;
+            color: var(--text-light);
+        }
+
+        .btn-blue:hover {
+            background-color: #1d4ed8;
+        }
 
         /* Header */
         header {
@@ -212,7 +347,10 @@
             transition: transform 0.3s;
             object-fit: contain;
         }
-        .logo-group:hover .logo-img { transform: rotate(0); }
+
+        .logo-group:hover .logo-img {
+            transform: rotate(0);
+        }
 
         .logo-text h1 {
             font-weight: 900;
@@ -221,6 +359,7 @@
             color: var(--amber-main);
             line-height: 1.2;
         }
+
         .logo-text p {
             font-size: 0.75rem;
             color: #f9a8d4;
@@ -236,10 +375,20 @@
             letter-spacing: 0.025em;
             text-transform: uppercase;
         }
-        @media (min-width: 768px) { .desktop-nav { display: flex; } }
-        
-        .desktop-nav a { transition: color 0.2s; }
-        .desktop-nav a:hover { color: var(--amber-main); }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+            }
+        }
+
+        .desktop-nav a {
+            transition: color 0.2s;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--amber-main);
+        }
 
         .header-actions {
             display: flex;
@@ -251,6 +400,7 @@
             padding: 0.625rem 1rem;
             font-size: 0.875rem;
         }
+
         .cart-badge {
             position: absolute;
             top: -0.5rem;
@@ -267,14 +417,22 @@
             transition: transform 0.2s;
             transform: scale(0);
         }
-        .cart-badge.show { transform: scale(1); }
+
+        .cart-badge.show {
+            transform: scale(1);
+        }
 
         .mobile-menu-btn {
             display: block;
             padding: 0.625rem;
             font-size: 1.125rem;
         }
-        @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
 
         /* Mobile Menu */
         #mobile-menu {
@@ -287,6 +445,7 @@
             font-weight: 700;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
+
         #mobile-menu a {
             display: block;
             padding: 0.75rem;
@@ -295,6 +454,7 @@
             border: 2px solid transparent;
             transition: all 0.2s;
         }
+
         #mobile-menu a:hover {
             background-color: var(--purple-header);
             border-color: var(--text-dark);
@@ -335,6 +495,7 @@
             width: 100%;
             padding: 0 0.5rem;
         }
+
         .title-shadow {
             position: absolute;
             top: -0.75rem;
@@ -346,7 +507,12 @@
             transform: rotate(2deg);
             display: none;
         }
-        @media (min-width: 768px) { .title-shadow { display: block; } }
+
+        @media (min-width: 768px) {
+            .title-shadow {
+                display: block;
+            }
+        }
 
         .title-main {
             position: relative;
@@ -358,17 +524,33 @@
             transform: rotate(-2deg);
             line-height: 1;
         }
-        @media (min-width: 640px) { .title-main { font-size: 3.75rem; padding: 1.5rem 2rem; } }
-        @media (min-width: 768px) { .title-main { font-size: 4.5rem; } }
-        
+
+        @media (min-width: 640px) {
+            .title-main {
+                font-size: 3.75rem;
+                padding: 1.5rem 2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .title-main {
+                font-size: 4.5rem;
+            }
+        }
+
         .title-main span {
             color: var(--text-light);
             display: block;
             font-size: 1.875rem;
             margin-top: 0.5rem;
         }
-        @media (min-width: 640px) { 
-            .title-main span { display: inline; font-size: 3rem; margin-top: 0; } 
+
+        @media (min-width: 640px) {
+            .title-main span {
+                display: inline;
+                font-size: 3rem;
+                margin-top: 0;
+            }
         }
 
         .subheading-banner {
@@ -380,9 +562,22 @@
             border-radius: 1rem;
             transform: rotate(1deg);
         }
-        .subheading-banner h2 { font-size: 1rem; }
-        @media (min-width: 640px) { .subheading-banner h2 { font-size: 1.25rem; } }
-        .subheading-banner p { font-size: 0.875rem; color: var(--pink-main); margin-top: 0.25rem; }
+
+        .subheading-banner h2 {
+            font-size: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .subheading-banner h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        .subheading-banner p {
+            font-size: 0.875rem;
+            color: var(--pink-main);
+            margin-top: 0.25rem;
+        }
 
         .hero-actions {
             display: flex;
@@ -392,7 +587,12 @@
             gap: 1.5rem;
             margin-top: 2rem;
         }
-        @media (min-width: 640px) { .hero-actions { flex-direction: row; } }
+
+        @media (min-width: 640px) {
+            .hero-actions {
+                flex-direction: row;
+            }
+        }
 
         .limited-badge {
             background-color: var(--amber-main);
@@ -412,8 +612,14 @@
             font-size: 1.25rem;
             border-radius: 1rem;
         }
-        .order-now-btn i { transition: transform 0.3s; }
-        .order-now-btn:hover i { transform: translateY(5px); }
+
+        .order-now-btn i {
+            transition: transform 0.3s;
+        }
+
+        .order-now-btn:hover i {
+            transform: translateY(5px);
+        }
 
         .trust-badge-container {
             margin-top: 4rem;
@@ -423,6 +629,7 @@
             padding: 1rem;
             border-radius: 50%;
         }
+
         .trust-badge-inner {
             display: flex;
             align-items: center;
@@ -432,7 +639,13 @@
             border-radius: 50%;
             padding: 0.5rem;
         }
-        .trust-badge-inner img { width: 7rem; height: 7rem; object-fit: contain; border-radius: 50%; }
+
+        .trust-badge-inner img {
+            width: 7rem;
+            height: 7rem;
+            object-fit: contain;
+            border-radius: 50%;
+        }
 
         /* Sibling Box Section */
         #sibling-box {
@@ -450,12 +663,24 @@
             padding: 2rem;
             border-radius: 1.5rem;
         }
-        @media (min-width: 768px) { 
-            .sibling-box-card { flex-direction: row; align-items: center; padding: 3rem; } 
-            .sibling-visual, .sibling-content { width: 50%; }
+
+        @media (min-width: 768px) {
+            .sibling-box-card {
+                flex-direction: row;
+                align-items: center;
+                padding: 3rem;
+            }
+
+            .sibling-visual,
+            .sibling-content {
+                width: 50%;
+            }
         }
 
-        .sibling-visual { position: relative; }
+        .sibling-visual {
+            position: relative;
+        }
+
         .zap-badge {
             position: absolute;
             top: -1.5rem;
@@ -469,7 +694,10 @@
             z-index: 20;
             transition: transform 0.3s;
         }
-        .sibling-visual:hover .zap-badge { transform: scale(1.1) rotate(-12deg); }
+
+        .sibling-visual:hover .zap-badge {
+            transform: scale(1.1) rotate(-12deg);
+        }
 
         .sibling-box-graphic {
             background-color: #f9a8d4;
@@ -483,6 +711,7 @@
             justify-content: center;
             min-height: 250px;
         }
+
         .graphic-inner {
             position: relative;
             z-index: 10;
@@ -491,11 +720,33 @@
             border-radius: 1rem;
             transform: rotate(2deg);
         }
-        .graphic-inner h3 { font-size: 2.25rem; color: #3b0764; margin-bottom: 0.5rem; }
-        .graphic-inner .noun { font-weight: 700; font-size: 0.875rem; color: var(--pink-main); margin-bottom: 1rem; }
-        .graphic-inner .def { font-weight: 900; font-size: 1.125rem; color: #1f2937; font-style: italic; }
 
-        .sibling-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        .graphic-inner h3 {
+            font-size: 2.25rem;
+            color: #3b0764;
+            margin-bottom: 0.5rem;
+        }
+
+        .graphic-inner .noun {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--pink-main);
+            margin-bottom: 1rem;
+        }
+
+        .graphic-inner .def {
+            font-weight: 900;
+            font-size: 1.125rem;
+            color: #1f2937;
+            font-style: italic;
+        }
+
+        .sibling-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
         .ultimate-badge {
             display: inline-block;
             background-color: var(--amber-main);
@@ -506,25 +757,72 @@
             border-radius: 9999px;
             align-self: flex-start;
         }
-        
-        .sibling-content h2 { font-size: 2.25rem; text-shadow: 3px 3px 0px var(--text-dark); line-height: 1; }
-        @media (min-width: 640px) { .sibling-content h2 { font-size: 3rem; } }
-        .sibling-content h2 span { color: #fde047; }
-        
-        .sibling-desc { font-size: 1rem; color: var(--gray-light); font-weight: 500; }
-        
+
+        .sibling-content h2 {
+            font-size: 2.25rem;
+            text-shadow: 3px 3px 0px var(--text-dark);
+            line-height: 1;
+        }
+
+        @media (min-width: 640px) {
+            .sibling-content h2 {
+                font-size: 3rem;
+            }
+        }
+
+        .sibling-content h2 span {
+            color: #fde047;
+        }
+
+        .sibling-desc {
+            font-size: 1rem;
+            color: var(--gray-light);
+            font-weight: 500;
+        }
+
         .sibling-features {
             background-color: rgba(59, 7, 100, 0.5);
             padding: 1rem;
             border-radius: 1rem;
         }
-        .sibling-features li { margin-bottom: 0.5rem; font-weight: 700; font-size: 0.875rem; color: #fbcfe8; }
-        .sibling-features i { color: var(--emerald-light); margin-right: 0.5rem; }
 
-        .sibling-action { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
-        .sibling-price { font-weight: 900; font-size: 2.25rem; text-shadow: 2px 2px 0px var(--text-dark); }
-        .sibling-action button { padding: 1rem 2rem; font-size: 1.125rem; flex: 1; border-radius: 0.75rem; }
-        @media (min-width: 640px) { .sibling-action button { flex: none; } }
+        .sibling-features li {
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: #fbcfe8;
+        }
+
+        .sibling-features i {
+            color: var(--emerald-light);
+            margin-right: 0.5rem;
+        }
+
+        .sibling-action {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sibling-price {
+            font-weight: 900;
+            font-size: 2.25rem;
+            text-shadow: 2px 2px 0px var(--text-dark);
+        }
+
+        .sibling-action button {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            flex: 1;
+            border-radius: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .sibling-action button {
+                flex: none;
+            }
+        }
 
         /* Catalogue Section */
         #catalogue {
@@ -533,8 +831,16 @@
             position: relative;
         }
 
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-title-wrap { display: inline-block; position: relative; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title-wrap {
+            display: inline-block;
+            position: relative;
+        }
+
         .fresh-badge {
             position: absolute;
             top: -1rem;
@@ -547,6 +853,7 @@
             font-size: 0.875rem;
             z-index: 10;
         }
+
         .section-title {
             font-size: 3rem;
             color: var(--pink-main);
@@ -557,8 +864,13 @@
             transform: rotate(-1deg);
             display: inline-block;
         }
-        @media (min-width: 640px) { .section-title { font-size: 4.5rem; } }
-        
+
+        @media (min-width: 640px) {
+            .section-title {
+                font-size: 4.5rem;
+            }
+        }
+
         .section-desc {
             color: #fef08a;
             font-weight: 700;
@@ -572,10 +884,21 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
-            align-items: stretch; /* Crucial for equal height */
+            align-items: stretch;
+            /* Crucial for equal height */
         }
-        @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        @media (min-width: 640px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
 
         .product-card {
             background-color: #4c1d95;
@@ -585,7 +908,11 @@
             flex-direction: column;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .product-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 12px 12px 0px var(--text-dark); }
+
+        .product-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 12px 12px 0px var(--text-dark);
+        }
 
         .product-img-wrap {
             position: relative;
@@ -594,14 +921,18 @@
             overflow: hidden;
             background-color: var(--text-light);
         }
+
         .product-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
         }
-        .product-card:hover .product-img { transform: scale(1.1); }
-        
+
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+        }
+
         .product-badge {
             position: absolute;
             top: 1rem;
@@ -615,17 +946,24 @@
 
         .product-info {
             padding: 1.5rem;
-            flex: 1; /* Pushes footer down */
+            flex: 1;
+            /* Pushes footer down */
             display: flex;
             flex-direction: column;
         }
+
         .product-title {
             font-size: 1.25rem;
             color: #fde047;
             margin-bottom: 0.5rem;
         }
-        @media (min-width: 640px) { .product-title { font-size: 1.5rem; } }
-        
+
+        @media (min-width: 640px) {
+            .product-title {
+                font-size: 1.5rem;
+            }
+        }
+
         .product-desc {
             font-size: 0.875rem;
             color: var(--gray-light);
@@ -633,7 +971,10 @@
             flex: 1;
         }
 
-        .flavor-select-wrap { margin-top: 1rem; }
+        .flavor-select-wrap {
+            margin-top: 1rem;
+        }
+
         .flavor-select-wrap label {
             font-size: 0.625rem;
             color: #f9a8d4;
@@ -641,7 +982,11 @@
             display: block;
             margin-bottom: 0.375rem;
         }
-        .select-container { position: relative; }
+
+        .select-container {
+            position: relative;
+        }
+
         .flavor-select {
             width: 100%;
             background-color: var(--text-light);
@@ -653,6 +998,7 @@
             appearance: none;
             outline: none;
         }
+
         .select-icon {
             position: absolute;
             right: 0.75rem;
@@ -666,18 +1012,40 @@
             padding: 0 1.5rem 1.5rem;
             margin-top: auto;
         }
+
         .price-action-bar {
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             border-radius: 1rem;
             padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .price-col { display: flex; flex-direction: column; }
-        .price-label { font-size: 0.625rem; color: #f472b6; font-weight: 900; }
-        .price-val { font-size: 1.5rem; font-weight: 900; color: var(--text-light); }
-        .add-btn { width: 3rem; height: 3rem; border-radius: 0.75rem; font-size: 1.25rem; padding: 0; }
+
+        .price-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.625rem;
+            color: #f472b6;
+            font-weight: 900;
+        }
+
+        .price-val {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-light);
+        }
+
+        .add-btn {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            font-size: 1.25rem;
+            padding: 0;
+        }
 
         /* Footer */
         footer {
@@ -687,6 +1055,7 @@
             text-align: center;
             position: relative;
         }
+
         .footer-logo {
             display: flex;
             align-items: center;
@@ -694,15 +1063,28 @@
             gap: 0.75rem;
             margin-bottom: 1.5rem;
         }
-        .footer-logo img { width: 3rem; height: 3rem; border-radius: 50%; border: 2px solid var(--text-light); background-color: var(--text-light); object-fit: contain; }
-        .footer-logo span { font-weight: 900; font-size: 1.25rem; }
-        
+
+        .footer-logo img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 2px solid var(--text-light);
+            background-color: var(--text-light);
+            object-fit: contain;
+        }
+
+        .footer-logo span {
+            font-weight: 900;
+            font-size: 1.25rem;
+        }
+
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
+
         .social-links a {
             width: 3rem;
             height: 3rem;
@@ -714,19 +1096,40 @@
             justify-content: center;
             transition: all 0.3s;
         }
-        .social-links a:hover { transform: scale(1.1); }
-        .social-links a:first-child:hover { background-color: var(--pink-main); box-shadow: 0 0 15px rgba(236,72,153,0.5); }
-        .social-links a:last-child:hover { background-color: var(--amber-main); box-shadow: 0 0 15px rgba(251,191,36,0.5); }
 
-        .footer-text { font-size: 0.875rem; font-weight: 700; color: var(--gray-dark); }
-        .footer-tagline { font-size: 0.75rem; font-weight: 600; color: #be185d; margin-top: 0.5rem; }
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links a:first-child:hover {
+            background-color: var(--pink-main);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+        }
+
+        .social-links a:last-child:hover {
+            background-color: var(--amber-main);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gray-dark);
+        }
+
+        .footer-tagline {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #be185d;
+            margin-top: 0.5rem;
+        }
 
         /* Cart Modal */
         #cart-modal {
             position: fixed;
             inset: 0;
             z-index: 100;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
@@ -736,7 +1139,11 @@
             pointer-events: none;
             transition: opacity 0.3s;
         }
-        #cart-modal.open { opacity: 1; pointer-events: auto; }
+
+        #cart-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         .cart-drawer {
             width: 100%;
@@ -751,7 +1158,10 @@
             transform: translateY(2rem) scale(0.98);
             transition: transform 0.3s ease-out;
         }
-        #cart-modal.open .cart-drawer { transform: translateY(0) scale(1); }
+
+        #cart-modal.open .cart-drawer {
+            transform: translateY(0) scale(1);
+        }
 
         .cart-header {
             padding: 1.25rem;
@@ -761,16 +1171,41 @@
             align-items: center;
             justify-content: space-between;
         }
-        .cart-title-wrap { display: flex; align-items: center; gap: 0.75rem; }
+
+        .cart-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
         .cart-icon-bg {
-            width: 2.5rem; height: 2.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
             background-color: var(--text-light);
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .cart-title-wrap h3 { font-size: 1.875rem; text-shadow: 2px 2px 0px var(--text-dark); }
-        .close-cart-btn { width: 2.5rem; height: 2.5rem; padding: 0; border-radius: 0.75rem; font-size: 1.125rem; background-color: var(--amber-main); color: var(--text-dark); }
-        .close-cart-btn:hover { background-color: var(--text-light); }
+
+        .cart-title-wrap h3 {
+            font-size: 1.875rem;
+            text-shadow: 2px 2px 0px var(--text-dark);
+        }
+
+        .close-cart-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            background-color: var(--amber-main);
+            color: var(--text-dark);
+        }
+
+        .close-cart-btn:hover {
+            background-color: var(--text-light);
+        }
 
         .cart-items-container {
             width: 34%;
@@ -782,15 +1217,63 @@
             gap: 1rem;
         }
 
-        .checkout-layout { flex: 1; min-height: 0; display: flex; flex-direction: row-reverse; }
-        .checkout-main { flex: 1; min-width: 0; overflow-y: auto; }
-        .checkout-progress { display: flex; align-items: center; gap: 0.5rem; padding: 1.25rem 1.5rem 0.25rem; }
-        .checkout-step { display: flex; align-items: center; gap: 0.4rem; color: var(--gray-dark); font-size: 0.7rem; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
-        .checkout-step-number { width: 1.6rem; height: 1.6rem; border: 2px solid var(--gray-dark); border-radius: 50%; display: grid; place-items: center; }
-        .checkout-step.active { color: var(--amber-main); }
-        .checkout-step.active .checkout-step-number { background: var(--amber-main); color: var(--text-dark); border-color: var(--text-dark); }
-        .checkout-step-line { flex: 1; height: 2px; background: var(--gray-dark); opacity: 0.5; }
-        
+        .checkout-layout {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .checkout-main {
+            flex: 1;
+            min-width: 0;
+            overflow-y: auto;
+        }
+
+        .checkout-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.25rem 1.5rem 0.25rem;
+        }
+
+        .checkout-step {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--gray-dark);
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .checkout-step-number {
+            width: 1.6rem;
+            height: 1.6rem;
+            border: 2px solid var(--gray-dark);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+
+        .checkout-step.active {
+            color: var(--amber-main);
+        }
+
+        .checkout-step.active .checkout-step-number {
+            background: var(--amber-main);
+            color: var(--text-dark);
+            border-color: var(--text-dark);
+        }
+
+        .checkout-step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--gray-dark);
+            opacity: 0.5;
+        }
+
         .empty-cart {
             height: 100%;
             display: flex;
@@ -800,8 +1283,13 @@
             text-align: center;
             opacity: 0.5;
         }
-        .empty-cart i { font-size: 4rem; color: var(--pink-main); margin-bottom: 1rem; }
-        
+
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--pink-main);
+            margin-bottom: 1rem;
+        }
+
         .cart-item {
             background-color: var(--text-light);
             padding: 0.75rem;
@@ -811,12 +1299,38 @@
             gap: 0.75rem;
             transition: transform 0.2s;
         }
-        .cart-item:hover { transform: translateY(-2px); }
-        .cart-item img { width: 4rem; height: 4rem; object-fit: cover; border-radius: 0.75rem; }
-        .cart-item-info { flex: 1; min-width: 0; }
-        .cart-item-title { font-size: 0.875rem; color: #3b0764; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.25rem; }
-        .cart-item-price { font-size: 0.875rem; color: var(--pink-main); font-weight: 700; }
-        
+
+        .cart-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-item img {
+            width: 4rem;
+            height: 4rem;
+            object-fit: cover;
+            border-radius: 0.75rem;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-item-title {
+            font-size: 0.875rem;
+            color: #3b0764;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            font-size: 0.875rem;
+            color: var(--pink-main);
+            font-weight: 700;
+        }
+
         .qty-controls {
             display: flex;
             align-items: center;
@@ -825,57 +1339,209 @@
             padding: 0.25rem;
             border-radius: 0.75rem;
         }
-        .qty-btn { width: 2rem; height: 2rem; padding: 0; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
-        .qty-btn.minus { background-color: var(--text-light); color: var(--text-dark); }
-        .qty-btn.plus { background-color: var(--amber-main); color: var(--text-dark); }
-        .qty-val { width: 1rem; text-align: center; color: var(--text-dark); font-weight: 900; font-size: 0.875rem; }
+
+        .qty-btn {
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn.minus {
+            background-color: var(--text-light);
+            color: var(--text-dark);
+        }
+
+        .qty-btn.plus {
+            background-color: var(--amber-main);
+            color: var(--text-dark);
+        }
+
+        .qty-val {
+            width: 1rem;
+            text-align: center;
+            color: var(--text-dark);
+            font-weight: 900;
+            font-size: 0.875rem;
+        }
 
         .cart-footer {
             padding: 1.5rem;
             background-color: #3b0764;
             border-top: 0;
         }
-        .checkout-section { padding-top: 1rem; margin-top: 1rem; border-top: 2px solid rgba(229, 231, 235, 0.2); }
-        .checkout-section-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: var(--amber-main); font-size: 0.85rem; }
-        .checkout-section-title i { color: var(--pink-main); }
+
+        .checkout-section {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 2px solid rgba(229, 231, 235, 0.2);
+        }
+
+        .checkout-section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--amber-main);
+            font-size: 0.85rem;
+        }
+
+        .checkout-section-title i {
+            color: var(--pink-main);
+        }
+
         .cart-total-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
             padding: 1rem;
             border-radius: 0.75rem;
             margin-bottom: 1rem;
         }
-        .cart-total-label { font-size: 1.125rem; color: var(--gray-light); }
-        .cart-total-val { font-size: 1.875rem; color: var(--amber-main); text-shadow: 2px 2px 0px var(--text-dark); }
-        
-        .checkout-btn-wa { width: 100%; padding: 1rem; font-size: 1.125rem; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .checkout-btn-rzp { width: 100%; padding: 1rem; font-size: 1.125rem; gap: 0.75rem; margin-bottom: 0.5rem; }
-        .checkout-btn-wa i, .checkout-btn-rzp i { transition: transform 0.3s; }
-        .checkout-btn-wa:hover i, .checkout-btn-rzp:hover i { transform: scale(1.1); }
-        
-        .cart-footer-note { font-size: 0.625rem; text-align: center; color: #f472b6; }
 
-        .coupon-row { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
-        .coupon-row input { flex: 1; min-width: 0; padding: 0.7rem; border: 2px solid var(--text-dark); border-radius: 0.4rem; font: inherit; }
-        .coupon-row button { padding: 0.7rem 1rem; border-radius: 0.4rem; }
-        .coupon-status { min-height: 1rem; margin-bottom: 0.5rem; font-size: 0.7rem; font-weight: 800; color: var(--emerald-light); }
-        .discount-row { display: flex; justify-content: space-between; margin: -0.5rem 0 0.75rem; color: var(--emerald-light); font-size: 0.8rem; font-weight: 800; }
+        .cart-total-label {
+            font-size: 1.125rem;
+            color: var(--gray-light);
+        }
+
+        .cart-total-val {
+            font-size: 1.875rem;
+            color: var(--amber-main);
+            text-shadow: 2px 2px 0px var(--text-dark);
+        }
+
+        .checkout-btn-wa {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .checkout-btn-rzp {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-btn-wa i,
+        .checkout-btn-rzp i {
+            transition: transform 0.3s;
+        }
+
+        .checkout-btn-wa:hover i,
+        .checkout-btn-rzp:hover i {
+            transform: scale(1.1);
+        }
+
+        .cart-footer-note {
+            font-size: 0.625rem;
+            text-align: center;
+            color: #f472b6;
+        }
+
+        .coupon-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .coupon-row input {
+            flex: 1;
+            min-width: 0;
+            padding: 0.7rem;
+            border: 2px solid var(--text-dark);
+            border-radius: 0.4rem;
+            font: inherit;
+        }
+
+        .coupon-row button {
+            padding: 0.7rem 1rem;
+            border-radius: 0.4rem;
+        }
+
+        .coupon-status {
+            min-height: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--emerald-light);
+        }
+
+        .discount-row {
+            display: flex;
+            justify-content: space-between;
+            margin: -0.5rem 0 0.75rem;
+            color: var(--emerald-light);
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .coupon-banner {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            background: var(--amber-light);
+            padding: 0.65rem;
+            border: 2px solid var(--text-dark);
+            border-radius: 0.4rem;
+            text-align: center;
+        }
+
+        .coupon-banner strong {
+            font-size: 1.1em;
+            color: var(--pink-main);
+            display: inline-block;
+        }
 
         .checkout-details {
             display: grid;
             gap: 0.65rem;
             margin-bottom: 1rem;
         }
-        .checkout-details h4 { color: var(--amber-main); font-size: 1rem; }
-        .checkout-details label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--gray-light); }
-        .checkout-details input, .checkout-details select, .checkout-details textarea {
-            width: 100%; padding: 0.65rem; border: 2px solid var(--text-dark); border-radius: 0.4rem;
-            font: inherit; font-size: 0.8rem; color: var(--text-dark); background: var(--text-light);
+
+        .checkout-details h4 {
+            color: var(--amber-main);
+            font-size: 1rem;
         }
-        .checkout-details textarea { min-height: 4rem; resize: vertical; }
-        .checkout-details .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+
+        .checkout-details label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--gray-light);
+        }
+
+        .checkout-details input,
+        .checkout-details select,
+        .checkout-details textarea {
+            width: 100%;
+            padding: 0.65rem;
+            border: 2px solid var(--text-dark);
+            border-radius: 0.4rem;
+            font: inherit;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            background: var(--text-light);
+        }
+
+        .checkout-details textarea {
+            min-height: 4rem;
+            resize: vertical;
+        }
+
+        .checkout-details .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+        }
 
         /* Toast */
         #toast {
@@ -896,15 +1562,37 @@
             min-width: 250px;
             justify-content: center;
         }
-        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-        #toast.pop { transform: translateX(-50%) translateY(0) scale(1.05); }
-        .toast-icon { width: 2rem; height: 2rem; border-radius: 50%; background-color: var(--emerald-main); display: flex; align-items: center; justify-content: center; }
-        .toast-icon i { color: var(--text-light); }
-        #toast-message { font-weight: 900; }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        #toast.pop {
+            transform: translateX(-50%) translateY(0) scale(1.05);
+        }
+
+        .toast-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: var(--emerald-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-icon i {
+            color: var(--text-light);
+        }
+
+        #toast-message {
+            font-weight: 900;
+        }
 
         /* Loader */
         .loader {
-            border: 3px solid rgba(255,255,255,0.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top: 3px solid var(--text-light);
             width: 20px;
@@ -912,30 +1600,84 @@
             animation: loaderSpin 1s linear infinite;
             display: none;
         }
-        @keyframes loaderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes loaderSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         @media (max-width: 600px) {
-            #cart-modal { padding: 0; }
-            .cart-drawer { max-height: 100vh; min-height: 100vh; border-left: 0; border-right: 0; border-top: 0; border-bottom: 0; }
-            .checkout-layout { flex-direction: column; overflow-y: auto; }
-            .checkout-main { overflow-y: visible; }
-            .cart-items-container { width: 100%; max-height: 32vh; flex: none; order: 2; padding: 1rem; }
-            .checkout-progress { padding: 1rem 1rem 0.25rem; }
-            .checkout-step { font-size: 0.6rem; }
-            .checkout-step-line { min-width: 0.5rem; }
-            .cart-footer { padding: 1rem; }
-            .checkout-details .field-row { grid-template-columns: 1fr; }
+            #cart-modal {
+                padding: 0;
+            }
+
+            .cart-drawer {
+                max-height: 100vh;
+                min-height: 100vh;
+                border-left: 0;
+                border-right: 0;
+                border-top: 0;
+                border-bottom: 0;
+            }
+
+            .checkout-layout {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .checkout-main {
+                overflow-y: visible;
+            }
+
+            .cart-items-container {
+                width: 100%;
+                max-height: 32vh;
+                flex: none;
+                order: 2;
+                padding: 1rem;
+            }
+
+            .checkout-progress {
+                padding: 1rem 1rem 0.25rem;
+            }
+
+            .checkout-step {
+                font-size: 0.6rem;
+            }
+
+            .checkout-step-line {
+                min-width: 0.5rem;
+            }
+
+            .cart-footer {
+                padding: 1rem;
+            }
+
+            .checkout-details .field-row {
+                grid-template-columns: 1fr;
+            }
+
+            .coupon-banner {
+                font-size: 0.75rem;
+                padding: 0.5rem;
+            }
         }
-        
     </style>
 </head>
+
 <body>
 
     <header>
         <div class="container header-content">
             <!-- Logo -->
             <a href="#" class="logo-group">
-                <img src="logo.webp" alt="Bake Me A Wish Logo" class="logo-img" onerror="this.src='https://placehold.co/100x100/ffffff/ec4899?text=BMW'">
+                <img src="logo.webp" alt="Bake Me A Wish Logo" class="logo-img"
+                    onerror="this.src='https://placehold.co/100x100/ffffff/ec4899?text=BMW'">
                 <div class="logo-text">
                     <h1 class="uppercase">BAKE ME A WISH</h1>
                     <p class="uppercase">Raksha Bandhan 2026</p>
@@ -956,9 +1698,10 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span style="margin-left: 0.5rem;" class="hidden-mobile">Cart</span>
                     </button>
-                    <span id="cart-badge" class="cart-badge border-black-thin" style="pointer-events: none; z-index: 10;">0</span>
+                    <span id="cart-badge" class="cart-badge border-black-thin"
+                        style="pointer-events: none; z-index: 10;">0</span>
                 </div>
-                
+
                 <button onclick="toggleMobileMenu()" class="btn-pink pop-button border-black mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -977,11 +1720,11 @@
         <div class="sunburst"></div>
 
         <div class="container hero-content" data-aos="zoom-out" data-aos-duration="800">
-            
+
             <div class="title-wrapper floating">
                 <div class="title-shadow border-black"></div>
                 <div class="title-main comic-font border-black shadow-pop-lg">
-                    POW! <span>A TOTALLY AWESOME</span> <br/> RAKHI TASTE EXPLOSION!
+                    POW! <span>A TOTALLY AWESOME</span> <br /> RAKHI TASTE EXPLOSION!
                 </div>
             </div>
 
@@ -995,14 +1738,15 @@
                     <i class="fa-solid fa-clock text-pink-600 animate-pulse" style="color: var(--pink-main)"></i>
                     <span class="uppercase">Limited Batch!</span>
                 </div>
-                
+
                 <a href="#catalogue" class="btn-emerald pop-button border-black order-now-btn shadow-pop">
                     <span class="uppercase">ORDER NOW</span>
                     <i class="fa-solid fa-arrow-down-wide-short" style="margin-left: 0.5rem"></i>
                 </a>
             </div>
 
-            <div class="trust-badge-container floating shadow-pop border-black" style="animation-delay: 1s;" data-aos="fade-in" data-aos-delay="600">
+            <div class="trust-badge-container floating shadow-pop border-black" style="animation-delay: 1s;"
+                data-aos="fade-in" data-aos-delay="600">
                 <div class="trust-badge-inner">
                     <img src="logo.webp" alt="Bake Me A Wish logo" class="trust-badge-logo">
                 </div>
@@ -1014,16 +1758,16 @@
     <section id="sibling-box">
         <div class="container" data-aos="fade-up">
             <div class="sibling-box-card border-black shadow-pop-xl">
-                
+
                 <div class="sibling-visual">
                     <div class="zap-badge comic-font border-black shadow-pop">ZAP! ⚡</div>
                     <div class="sibling-box-graphic border-black">
-                         <div class="halftone-bg hero-bg-overlay" style="opacity: 0.3;"></div>
-                         <div class="graphic-inner border-black shadow-pop">
-                             <h3 class="comic-font uppercase">Sibling.</h3>
-                             <p class="noun uppercase">(Noun.)</p>
-                             <p class="def">"See also: Cake Thief (who I still love!)."</p>
-                         </div>
+                        <div class="halftone-bg hero-bg-overlay" style="opacity: 0.3;"></div>
+                        <div class="graphic-inner border-black shadow-pop">
+                            <h3 class="comic-font uppercase">Sibling.</h3>
+                            <p class="noun uppercase">(Noun.)</p>
+                            <p class="def">"See also: Cake Thief (who I still love!)."</p>
+                        </div>
                     </div>
                 </div>
 
@@ -1031,24 +1775,31 @@
                     <div class="ultimate-badge border-black-thin uppercase">
                         ⭐ The Ultimate Gift ⭐
                     </div>
-                    
+
                     <h2 class="comic-font uppercase">
                         THE SIBLING<br><span>DEFINITION BOX</span>
                     </h2>
-                    
+
                     <p class="sibling-desc">
-                        Why choose one battleground when you can have four? This mega-box comes fully loaded with a Rakhi, Roli Chawal, and four decadent peace offerings: the classic Tiramisu, the diplomacy-winning Death by Chocolate, the favorite-child Rasmalai Tres Leches, and the scoopable Nutella Cookie Tin. Hand over the box, tie the thread, and may the fastest spoon win.
+                        Why choose one battleground when you can have four? This mega-box comes fully loaded with a
+                        Rakhi, Roli Chawal, and four decadent peace offerings: the classic Tiramisu, the
+                        diplomacy-winning Death by Chocolate, the favorite-child Rasmalai Tres Leches, and the scoopable
+                        Nutella Cookie Tin. Hand over the box, tie the thread, and may the fastest spoon win.
                     </p>
-                    
+
                     <ul class="sibling-features border-black-thin">
                         <li><i class="fa-solid fa-check-circle"></i> 1 Premium Designer Rakhi</li>
-                        <li><i class="fa-solid fa-check-circle"></i> Assorted Signature Treats</li>
+                        <li><i class="fa-solid fa-check-circle"></i>Tiramisu Tres Leches Cookie Tin and Crumble - all in
+                            one!</li>
                         <li><i class="fa-solid fa-check-circle"></i> Quirky Definition Packaging</li>
                     </ul>
 
                     <div class="sibling-action">
-                        <span class="sibling-price comic-font">₹1,400 <span style="text-decoration: line-through; font-size: 0.85em; color: #ef4444; margin-left: 0.5rem;">₹1,625</span></span>
-                        <button onclick="addSpecialToCart('prod-sibling', 'The Sibling Box', 1400, 'https://placehold.co/400x300/f472b6/000000?text=Sibling+Definition+Box')" class="btn-amber pop-button border-black shadow-pop">
+                        <span class="sibling-price comic-font">₹1,400 <span
+                                style="text-decoration: line-through; font-size: 0.85em; color: #ef4444; margin-left: 0.5rem;">₹1,625</span></span>
+                        <button
+                            onclick="addSpecialToCart('prod-sibling', 'The Sibling Box', 1400, 'https://placehold.co/400x300/f472b6/000000?text=Sibling+Definition+Box')"
+                            class="btn-amber pop-button border-black shadow-pop">
                             <i class="fa-solid fa-cart-plus" style="margin-right: 0.5rem"></i>
                             <span class="uppercase">ADD TO CART</span>
                         </button>
@@ -1063,13 +1814,13 @@
         <div class="halftone-bg hero-bg-overlay" style="opacity: 0.1;"></div>
 
         <div class="container">
-            
+
             <div class="section-header" data-aos="fade-down">
                 <div class="section-title-wrap">
-                     <span class="fresh-badge comic-font border-black-thin shadow-pop">FRESH!</span>
-                     <h2 class="section-title comic-font border-black uppercase">
+                    <span class="fresh-badge comic-font border-black-thin shadow-pop">FRESH!</span>
+                    <h2 class="section-title comic-font border-black uppercase">
                         RAKHI TREATS
-                     </h2>
+                    </h2>
                 </div>
                 <p class="section-desc uppercase">
                     Handmade with premium ingredients, love, and absolute perfection.
@@ -1086,10 +1837,11 @@
     <footer>
         <div class="container">
             <div class="footer-logo">
-                <img src="logo.webp" alt="Bake Me A Wish Logo" onerror="this.src='https://placehold.co/100x100/ffffff/ec4899?text=BMW'">
+                <img src="logo.webp" alt="Bake Me A Wish Logo"
+                    onerror="this.src='https://placehold.co/100x100/ffffff/ec4899?text=BMW'">
                 <span class="comic-font uppercase">Bake Me A Wish</span>
             </div>
-            
+
             <div class="social-links">
                 <a href="#"><i class="fa-brands fa-instagram" style="font-size: 1.25rem;"></i></a>
                 <a href="#"><i class="fa-brands fa-facebook-f" style="font-size: 1.25rem;"></i></a>
@@ -1102,7 +1854,7 @@
 
     <div id="cart-modal">
         <div class="cart-drawer" id="cart-drawer-content" onclick="event.stopPropagation()">
-            
+
             <div class="cart-header">
                 <div class="cart-title-wrap">
                     <div class="cart-icon-bg border-black-thin shadow-pop">
@@ -1122,18 +1874,24 @@
 
                 <div class="checkout-main">
                     <div class="checkout-progress" aria-label="Checkout progress">
-                        <div class="checkout-step active"><span class="checkout-step-number">1</span><span>Details</span></div>
+                        <div class="checkout-step active"><span
+                                class="checkout-step-number">1</span><span>Details</span></div>
                         <span class="checkout-step-line"></span>
-                        <div class="checkout-step active"><span class="checkout-step-number">2</span><span>Review</span></div>
+                        <div class="checkout-step active"><span class="checkout-step-number">2</span><span>Review</span>
+                        </div>
                         <span class="checkout-step-line"></span>
-                        <div class="checkout-step active"><span class="checkout-step-number">3</span><span>Pay</span></div>
+                        <div class="checkout-step active"><span class="checkout-step-number">3</span><span>Pay</span>
+                        </div>
                     </div>
 
                     <div class="cart-footer">
                         <div class="checkout-section" style="padding-top:0; margin-top:0; border-top:0;">
-                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-user"></i> 1. Your details</h4>
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-user"></i> 1. Your
+                                details</h4>
                             <form id="checkout-details" class="checkout-details">
-                                <p style="font-size:0.75rem; color:var(--gray-light);">Pickup is available only at <strong>3/131 Gomti Nagar, Lucknow</strong>. For delivery, use WhatsApp to check eligibility before ordering.</p>
+                                <p style="font-size:0.75rem; color:var(--gray-light);">Pickup is available only at
+                                    <strong>3/131 Gomti Nagar, Lucknow</strong>. For delivery, use WhatsApp to check
+                                    eligibility before ordering.</p>
                                 <label for="customer-name">Name</label>
                                 <input id="customer-name" name="name" required autocomplete="name">
                                 <label for="customer-email">Email</label>
@@ -1141,46 +1899,69 @@
                                 <label for="customer-phone">Phone number</label>
                                 <input id="customer-phone" name="phone" type="tel" required autocomplete="tel">
                                 <div class="field-row">
-                                    <div><label for="delivery-date">Date of pickup</label><input id="delivery-date" name="deliveryDate" type="date" required></div>
-                                    <div><label for="pickup-time">Time of pickup</label><input id="pickup-time" name="pickupTime" type="time" required></div>
+                                    <div><label for="delivery-date">Date of pickup</label><input id="delivery-date"
+                                            name="deliveryDate" type="date" required></div>
+                                    <div><label for="pickup-time">Time of pickup</label><input id="pickup-time"
+                                            name="pickupTime" type="time" required></div>
                                 </div>
                                 <label for="fulfillment">Delivery or pickup</label>
-                                <select id="fulfillment" name="fulfillment" required><option value="Pickup">Pickup only</option></select>
+                                <select id="fulfillment" name="fulfillment" required>
+                                    <option value="Pickup">Pickup only</option>
+                                </select>
                                 <label for="customer-address">Address</label>
-                                <textarea id="customer-address" name="address" required autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
-                                
-                                <label for="sticker-message" style="margin-top: 1rem;">Choose a Sticker Message (Optional)</label>
+                                <textarea id="customer-address" name="address" required
+                                    autocomplete="street-address">3/131 Gomti Nagar, Lucknow</textarea>
+
+                                <label for="sticker-message" style="margin-top: 1rem;">Choose a Sticker Message
+                                    (Optional)</label>
                                 <select id="sticker-message" name="stickerMessage">
                                     <option value="">None</option>
                                     <option value="The Bank Balance">The Bank Balance (Protect my bank balance)</option>
-                                    <option value="The Snack Protector">The Snack Protector (Stop eating my leftovers)</option>
+                                    <option value="The Snack Protector">The Snack Protector (Stop eating my leftovers)
+                                    </option>
                                     <option value="Mom’s Favorite">Mom’s Favorite (Mom's second favorite child)</option>
                                     <option value="The Peace Treaty">The Peace Treaty (Stop stealing hoodies)</option>
-                                    <option value="The Ulterior Motive">The Ulterior Motive (What did you break?)</option>
+                                    <option value="The Ulterior Motive">The Ulterior Motive (What did you break?)
+                                    </option>
                                     <option value="The Wi-Fi Password">The Wi-Fi Password (Give me the Wi-Fi)</option>
                                 </select>
-                                
+
                                 <label for="custom-message">Custom Message (Optional)</label>
-                                <textarea id="custom-message" name="customMessage" rows="2" placeholder="Any custom message?"></textarea>
+                                <textarea id="custom-message" name="customMessage" rows="2"
+                                    placeholder="Any custom message?"></textarea>
                             </form>
                         </div>
 
                         <div class="checkout-section">
-                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-ticket"></i> 2. Add a coupon</h4>
-                            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.75rem; background: var(--amber-light); padding: 0.5rem; border: 2px solid var(--text-dark); border-radius: 0.4rem; text-align: center;">🎉 Use code <strong style="font-size: 1.1em; color: var(--pink-main);">RAKHI50</strong> for ₹50 off your order!</p>
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-ticket"></i> 2. Add a
+                                coupon</h4>
+                            <p class="coupon-banner">🎉 Use code <strong>RAKHI50</strong> for ₹50 off your order!</p>
                             <div class="coupon-row">
-                                <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off" aria-label="Coupon code">
-                                <button type="button" onclick="applyCoupon()" class="btn-amber pop-button border-black-thin">Apply</button>
+                                <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off"
+                                    aria-label="Coupon code">
+                                <button type="button" onclick="applyCoupon()"
+                                    class="btn-amber pop-button border-black-thin">Apply</button>
                             </div>
                             <div id="coupon-status" class="coupon-status" role="status"></div>
                         </div>
 
                         <div class="checkout-section">
-                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-lock"></i> 3. Choose how to order</h4>
-                            <div id="discount-row" class="discount-row hidden"><span>Coupon discount</span><span class="discount-value">-₹0</span></div>
-                            <div class="cart-total-row border-black-thin"><span class="cart-total-label uppercase font-black">Payable total</span><span id="cart-total" class="cart-total-val comic-font">₹0</span></div>
-                            <button onclick="checkoutWhatsApp()" class="btn-emerald pop-button checkout-btn-wa border-black shadow-pop uppercase"><i class="fa-brands fa-whatsapp"></i><span>Order via WhatsApp</span></button>
-                            <button id="rzp-button" onclick="startRazorpayCheckout()" class="btn-blue pop-button checkout-btn-rzp border-black shadow-pop uppercase"><i id="rzp-button-icon" class="fa-solid fa-credit-card"></i><div id="rzp-button-spinner" class="loader"></div><span id="rzp-button-text">Pay Online Securely</span></button>
+                            <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-lock"></i> 3. Choose how
+                                to order</h4>
+                            <div id="discount-row" class="discount-row hidden"><span>Coupon discount</span><span
+                                    class="discount-value">-₹0</span></div>
+                            <div class="cart-total-row border-black-thin"><span
+                                    class="cart-total-label uppercase font-black">Payable total</span><span
+                                    id="cart-total" class="cart-total-val comic-font">₹0</span></div>
+                            <button onclick="checkoutWhatsApp()"
+                                class="btn-emerald pop-button checkout-btn-wa border-black shadow-pop uppercase"><i
+                                    class="fa-brands fa-whatsapp"></i><span>Order via WhatsApp</span></button>
+                            <button id="rzp-button" onclick="startRazorpayCheckout()"
+                                class="btn-blue pop-button checkout-btn-rzp border-black shadow-pop uppercase"><i
+                                    id="rzp-button-icon" class="fa-solid fa-credit-card"></i>
+                                <div id="rzp-button-spinner" class="loader"></div><span id="rzp-button-text">Pay Online
+                                    Securely</span>
+                            </button>
                             <p class="cart-footer-note uppercase font-black">Secure Payments & Easy Ordering</p>
                         </div>
                     </div>
@@ -1256,9 +2037,9 @@
             const dateInput = document.getElementById('delivery-date');
             dateInput.min = minimumDate.toISOString().slice(0, 10);
             dateInput.max = maxDateStr;
-            
+
             // Close modal when clicking outside drawer
-            document.getElementById('cart-modal').addEventListener('click', function(e) {
+            document.getElementById('cart-modal').addEventListener('click', function (e) {
                 if (e.target === this) toggleCartModal();
             });
 
@@ -1270,7 +2051,7 @@
 
         // Setup Custom Colors based on classes for vanilla JS injection
         const getBadgeStyle = (colorClass) => {
-            if(colorClass === 'bg-amber-main') return 'background-color: var(--amber-main); color: var(--text-dark);';
+            if (colorClass === 'bg-amber-main') return 'background-color: var(--amber-main); color: var(--text-dark);';
             return 'background-color: var(--pink-main); color: var(--text-light);';
         }
 
@@ -1283,7 +2064,7 @@
                 card.className = 'product-card border-black shadow-pop';
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('data-aos-delay', (index * 100).toString());
-                
+
                 let priceDisplay = product.price ? `₹${product.price}` : `₹${product.flavors[0].price}`;
                 let flavorDropdownHtml = '';
                 let buttonAction = `addToCart(${product.id})`;
@@ -1377,16 +2158,16 @@
         function addToCart(productId) {
             const product = catalogueData.find(p => p.id === productId);
             if (!product) return;
-            
+
             const cartItemId = `prod-${product.id}`;
             const existingItem = cart.find(item => item.cartItemId === cartItemId);
-            
+
             if (existingItem) {
                 existingItem.qty += 1;
             } else {
                 cart.push({ cartItemId, name: product.name, price: product.price, image: product.image, qty: 1 });
             }
-            
+
             updateCartUI();
             showToast(`${product.name} Added!`);
         }
@@ -1412,7 +2193,7 @@
                     qty: 1
                 });
             }
-            
+
             updateCartUI();
             showToast(`${flavorName} Tres Leches Added!`);
         }
@@ -1453,7 +2234,7 @@
                 const result = await response.json();
                 if (!result.valid) throw new Error('Invalid coupon');
                 appliedCouponCode = code.toUpperCase();
-                
+
                 if (appliedCouponCode === 'BMATEST1') {
                     discountAmount = getCartSubtotal() - 1;
                     status.innerText = 'Coupon applied. Payable total is ₹1.';
@@ -1532,7 +2313,7 @@
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-message').innerText = message;
-            
+
             toast.classList.add('show');
             setTimeout(() => toast.classList.add('pop'), 50);
             setTimeout(() => toast.classList.remove('pop'), 250);
@@ -1559,22 +2340,22 @@
         function getOrderMessage(details, paymentInfo = {}) {
             const totalPrice = getPayableTotal();
             let message = '';
-            
+
             if (paymentInfo.paymentId) {
                 message += `✅ *PAYMENT SUCCESSFUL* ✅\nPayment ID: ${paymentInfo.paymentId}\nDate: ${paymentInfo.paymentDateTime}\n\n`;
             }
-            
+
             message += `Hi Bake Me A Wish! I want to place an order from the Raksha Bandhan Catalogue:\n\n`;
             message += `Name: ${details.name}\nEmail: ${details.email}\nPhone: ${details.phone}\n`;
             message += `${details.fulfillment}: ${details.deliveryDate} at ${details.pickupTime}\nAddress: ${details.address}\n\n`;
-            
+
             if (details.stickerMessage) {
                 message += `Sticker Message: ${details.stickerMessage}\n`;
             }
             if (details.customMessage) {
                 message += `Custom Message: ${details.customMessage}\n`;
             }
-            
+
             message += `\nItems:\n`;
             cart.forEach((item, index) => { message += `${index + 1}. ${item.name} - Qty: ${item.qty} x INR ${item.price} = INR ${item.price * item.qty}\n`; });
             message += `\nTotal amount: INR ${totalPrice}`;
@@ -1667,11 +2448,11 @@
                                 const notificationWarning = notifyRes.ok ? '' : ' Email notification needs manual follow-up.';
                                 showToast(`Payment successful and verified.${notificationWarning}`);
                                 const message = getOrderMessage(details, { paymentId: response.razorpay_payment_id, paymentDateTime });
-                                
+
                                 cart = [];
                                 updateCartUI();
                                 toggleCartModal();
-                                
+
                                 window.location.href = `https://wa.me/917705982880?text=${encodeURIComponent(message)}`;
                             } else {
                                 throw new Error("Signature verification failed.");
@@ -1684,9 +2465,9 @@
                     "prefill": { "name": details.name, "email": details.email, "contact": details.phone },
                     "theme": { "color": "#ec4899" }
                 };
-                
+
                 const rzp1 = new Razorpay(options);
-                rzp1.on('payment.failed', function (response){
+                rzp1.on('payment.failed', function (response) {
                     alert("Payment Failed: " + response.error.description);
                 });
                 rzp1.open();
@@ -1704,4 +2485,5 @@
         }
     </script>
 </body>
+
 </html>
