@@ -34,7 +34,7 @@ const mailer = process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMT
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     })
   : null;
-const testCouponCode = 'BMATEST1';
+const testCouponCode = 'BMATEST';
 const rakhiCouponCode = 'RAKHI50';
 
 function validateOrderDetails(details) {
@@ -49,11 +49,6 @@ function validateOrderDetails(details) {
   const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}:00+05:30`);
   if (Number.isNaN(requestedTime.getTime()) || requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
     return 'Delivery or pickup must be scheduled at least 24 hours from now.';
-  }
-
-  const maxDate = new Date('2026-08-31T00:00:00+05:30');
-  if (requestedTime.getTime() >= maxDate.getTime()) {
-    return 'We are not accepting orders for after August 30th.';
   }
 
   return null;

@@ -2033,10 +2033,8 @@
             renderCatalogue();
             updateCartUI();
             const minimumDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
-            const maxDateStr = '2026-08-30';
             const dateInput = document.getElementById('delivery-date');
             dateInput.min = minimumDate.toISOString().slice(0, 10);
-            dateInput.max = maxDateStr;
 
             // Close modal when clicking outside drawer
             document.getElementById('cart-modal').addEventListener('click', function (e) {
@@ -2212,7 +2210,7 @@
         }
 
         function getPayableTotal() {
-            if (appliedCouponCode === 'BMATEST1') return 1;
+            if (appliedCouponCode === 'BMATEST') return 1;
             return Math.max(1, getCartSubtotal() - discountAmount);
         }
 
@@ -2235,7 +2233,7 @@
                 if (!result.valid) throw new Error('Invalid coupon');
                 appliedCouponCode = code.toUpperCase();
 
-                if (appliedCouponCode === 'BMATEST1') {
+                if (appliedCouponCode === 'BMATEST') {
                     discountAmount = getCartSubtotal() - 1;
                     status.innerText = 'Coupon applied. Payable total is ₹1.';
                 } else {
@@ -2327,11 +2325,6 @@
             const requestedTime = new Date(`${details.deliveryDate}T${details.pickupTime}:00+05:30`);
             if (requestedTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
                 showToast('Choose a date and time at least 24 hours from now.');
-                return null;
-            }
-            const maxDate = new Date('2026-08-31T00:00:00+05:30');
-            if (requestedTime.getTime() >= maxDate.getTime()) {
-                showToast('We are not accepting orders for after August 30th.');
                 return null;
             }
             return details;
