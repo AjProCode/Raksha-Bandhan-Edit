@@ -1935,7 +1935,7 @@
                         <div class="checkout-section">
                             <h4 class="checkout-section-title uppercase"><i class="fa-solid fa-ticket"></i> 2. Add a
                                 coupon</h4>
-                            <p class="coupon-banner">🎉 Use code <strong>RAKHI50</strong> for ₹50 off your order!</p>
+                            <p class="coupon-banner">🎉 Use code <strong>RAKHI50</strong> for ₹50 off your order! Test code: <strong>BMATEST</strong> for a ₹1 total.</p>
                             <div class="coupon-row">
                                 <input id="coupon-code" type="text" placeholder="Coupon code" autocomplete="off"
                                     aria-label="Coupon code">
@@ -2209,8 +2209,12 @@
             return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         }
 
+        function isTestCoupon(code) {
+            return code.trim().toUpperCase() === 'BMATEST';
+        }
+
         function getPayableTotal() {
-            if (appliedCouponCode === 'BMATEST') return 1;
+            if (isTestCoupon(appliedCouponCode)) return 1;
             return Math.max(1, getCartSubtotal() - discountAmount);
         }
 
@@ -2231,9 +2235,9 @@
                 });
                 const result = await response.json();
                 if (!result.valid) throw new Error('Invalid coupon');
-                appliedCouponCode = code.toUpperCase();
+                appliedCouponCode = code.trim().toUpperCase();
 
-                if (appliedCouponCode === 'BMATEST') {
+                if (isTestCoupon(appliedCouponCode)) {
                     discountAmount = getCartSubtotal() - 1;
                     status.innerText = 'Coupon applied. Payable total is ₹1.';
                 } else {
